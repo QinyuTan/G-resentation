@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>G-resentation · capability</title>
+<style>
+  :root { --ink:#051C2C; --muted:#5B6B7C; --faint:#8A94A0; --accent:#2251FF; --rule:#D9DEE5; --bg:#FFFFFF; --panel:#F4F6F8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1280px; height:720px; overflow:hidden; background:var(--bg); }
+  body { font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); }
+  .wrap { width:1280px; height:720px; padding:36px 44px 24px; display:flex; flex-direction:column; }
+  header { display:flex; align-items:flex-start; justify-content:space-between; gap:32px; }
+  .brand { font-size:15px; letter-spacing:.22em; color:var(--accent); font-weight:600; }
+  h1 { font-size:40px; line-height:1.2; margin-top:10px; letter-spacing:-.01em; }
+  .lede { font-size:17px; color:var(--muted); margin-top:10px; }
+  .stats { display:flex; gap:24px; padding-top:4px; }
+  .stat { text-align:right; }
+  .stat b { display:block; font-size:30px; font-weight:700; letter-spacing:-.02em; }
+  .stat span { font-size:11px; color:var(--faint); letter-spacing:.04em; white-space:nowrap; }
+  .grid { margin-top:20px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px 18px; flex:1; }
+  figure { display:flex; flex-direction:column; gap:6px; min-height:0; }
+  figure img { width:100%; display:block; border:1px solid var(--rule); }
+  figcaption { font-size:11px; color:var(--faint); letter-spacing:.04em; white-space:nowrap; }
+  footer { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--rule); padding-top:10px; font-size:11px; color:var(--faint); }
+  footer b { color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="brand">G-PRESENTATION</div>
+      <h1 id="claim">先问清，再动手。</h1>
+      <p class="lede" id="lede">从需求追问、页面编号冻结，到三页样稿与四类验收的完整 PPT 生产流程</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>14</b><span id="s1">页 · 一次真实交付</span></div>
+      <div class="stat"><b>3</b><span id="s2">次停顿等你拍板</span></div>
+      <div class="stat"><b>4</b><span id="s3">类验收逐项过</span></div>
+      <div class="stat"><b>0</b><span id="s4">页允许重新编号</span></div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <figure><img src="../deck/p01.png" alt=""><figcaption id="c1">封面 · 标题即主张</figcaption></figure>
+    <figure><img src="../deck/p03.png" alt=""><figcaption id="c2">证据页 · 三栏例证 + 含义条</figcaption></figure>
+    <figure><img src="../deck/p09.png" alt=""><figcaption id="c3">成本分层 · 用底色讲取舍</figcaption></figure>
+    <figure><img src="../deck/p11.png" alt=""><figcaption id="c4">自查表 · 合格与不合格对照</figcaption></figure>
+    <figure><img src="../deck/p12.png" alt=""><figcaption id="c5">象限图 · 高频低风险先跑</figcaption></figure>
+    <figure><img src="../deck/p14.png" alt=""><figcaption id="c6">收尾 · 不做什么比做什么更难</figcaption></figure>
+  </div>
+
+  <footer>
+    <span id="foot-l">同样的内容，换成咨询版式：一句话结论做标题，证据铺开，来源压在页脚。</span>
+    <span><b>github.com/QinyuTan/G-resentation</b></span>
+  </footer>
+</div>
+
+<script>
+const L = {
+  zh: {
+    claim: "先问清，再动手。",
+    lede: "从需求追问、页面编号冻结，到三页样稿与四类验收的完整 PPT 生产流程",
+    s1: "页 · 一次真实交付", s2: "次停顿等你拍板", s3: "类验收逐项过", s4: "页允许重新编号",
+    c1: "封面 · 标题即主张", c2: "证据页 · 三栏例证 + 含义条", c3: "成本分层 · 用底色讲取舍",
+    c4: "自查表 · 合格与不合格对照", c5: "象限图 · 高频低风险先跑", c6: "收尾 · 不做什么比做什么更难",
+    foot: "同样的内容，换成咨询版式：一句话结论做标题，证据铺开，来源压在页脚。"
+  },
+  en: {
+    claim: "Ask first. Build once.",
+    lede: "Interview the brief, freeze page IDs, sample three pages, verify four categories",
+    s1: "slides, one delivery", s2: "stops for you", s3: "acceptance checks", s4: "renumbered pages",
+    c1: "Cover · the title makes the claim", c2: "Evidence · three proofs, one takeaway", c3: "Cost tiers · colour carries the choice",
+    c4: "Self-check · pass vs fail side by side", c5: "Quadrant · start where it's frequent and safe", c6: "Close · what not to do lands harder",
+    foot: "Same content, consulting layout: action titles, evidence laid out, sources pinned to the footer."
+  }
+};
+const lang = (new URLSearchParams(location.search).get("lang") === "en") ? "en" : "zh";
+const t = L[lang];
+document.getElementById("claim").textContent = t.claim;
+document.getElementById("lede").textContent = t.lede;
+["s1","s2","s3","s4"].forEach((k,i)=>document.getElementById(k).textContent = t["s"+(i+1)]);
+["c1","c2","c3","c4","c5","c6"].forEach(k=>document.getElementById(k).textContent = t[k]);
+document.getElementById("foot-l").textContent = t.foot;
+document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>typical unconstrained output</title>
+<style>
+  /* 刻意复刻一次"不加任何约束"的默认输出：居中大标题、渐变底、要点堆叠、无出处 */
+  html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; }
+  .s {
+    width: 1280px; height: 720px; position: relative;
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 45%, #4C1D95 100%);
+    color: #F8FAFC; font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    padding: 64px 80px; box-sizing: border-box;
+  }
+  .tag { font-size: 20px; letter-spacing: .28em; opacity: .72; }
+  h1 { font-size: 58px; margin: 18px 0 10px; font-weight: 700; }
+  .sub { font-size: 24px; opacity: .78; margin-bottom: 34px; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  li {
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.16);
+    border-radius: 14px; padding: 18px 24px; font-size: 24px; line-height: 1.4;
+  }
+  li b { font-weight: 700; }
+  li span { display: block; font-size: 19px; opacity: .78; margin-top: 6px; }
+  .foot { position: absolute; right: 80px; bottom: 44px; font-size: 18px; opacity: .6; }
+</style>
+</head>
+<body>
+  <div class="s">
+    <div class="tag">2026 · 行业观察</div>
+    <h1>AI 行业发展现状分析</h1>
+    <div class="sub">技术进展、产业格局与未来趋势</div>
+    <ul>
+      <li><b>一、大模型技术持续突破</b><span>多模态能力增强，推理成本下降，开源生态繁荣</span></li>
+      <li><b>二、应用场景不断扩展</b><span>从办公、编程延伸到医疗、金融、教育等多个领域</span></li>
+      <li><b>三、产业格局加速演变</b><span>头部厂商竞争激烈，创业公司寻找差异化定位</span></li>
+      <li><b>四、挑战与机遇并存</b><span>算力、数据、安全、伦理等问题仍需持续解决</span></li>
+    </ul>
+    <div class="foot">谢谢观看</div>
+  </div>
+</body>
+</html>

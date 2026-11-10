@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>G-resentation · compare</title>
+<style>
+  :root { --ink:#051C2C; --muted:#5B6B7C; --faint:#8A94A0; --accent:#2251FF; --rule:#D9DEE5; --panel:#F4F6F8; --bad:#B42318; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1280px; height:720px; overflow:hidden; background:#fff; }
+  body { font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); }
+  .wrap { width:1280px; height:720px; padding:34px 44px 24px; display:flex; flex-direction:column; }
+  header { display:flex; align-items:baseline; justify-content:space-between; gap:24px; }
+  h1 { font-size:34px; letter-spacing:-.01em; }
+  .sub { font-size:13px; color:var(--faint); }
+  .cols { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:18px; min-height:0; }
+  .col { display:flex; flex-direction:column; min-height:0; }
+  .cap { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.06em; margin-bottom:8px; }
+  .cap b { font-size:13px; letter-spacing:0; }
+  .dot { width:8px; height:8px; border-radius:50%; }
+  .left .dot { background:var(--bad); }
+  .right .dot { background:var(--accent); }
+  .left .cap { color:var(--bad); }
+  .right .cap { color:var(--accent); }
+  img { width:100%; display:block; border:1px solid var(--rule); }
+  ul { list-style:none; margin-top:12px; display:flex; flex-direction:column; gap:7px; }
+  li { font-size:13px; color:#3E4C5A; line-height:1.45; padding-left:14px; position:relative; }
+  li::before { content:""; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--rule); }
+  .left li::before { background:#E3B4AE; }
+  .right li::before { background:#A9BEFF; }
+  footer { display:flex; gap:14px; margin-top:14px; }
+  .chip { flex:1; background:var(--panel); padding:11px 16px; font-size:12px; color:var(--muted); line-height:1.4; }
+  .chip b { color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">同一句话，两种结果</h1>
+    <div class="sub" id="sub">同一主题、同样 20 分钟，两种产出</div>
+  </header>
+
+  <div class="cols">
+    <div class="col left">
+      <div class="cap"><span class="dot"></span><b id="l-title">不加任何约束</b><span id="l-tag">典型结构 · 未经验收</span></div>
+      <img src="../deck/typical.png" alt="">
+      <ul>
+        <li id="l1">标题全是分类名：行业概况、技术趋势、应用场景</li>
+        <li id="l2">没有一页回答"所以你要做什么"</li>
+        <li id="l3">数据写"显著提升"，找不到出处</li>
+        <li id="l4">每页一个色块，看不出哪里是重点</li>
+      </ul>
+    </div>
+
+    <div class="col right">
+      <div class="cap"><span class="dot"></span><b id="r-title">走完 G-resentation</b><span id="r-tag">14 页 · 冻结编号</span></div>
+      <img src="../deck/p03.png" alt="">
+      <ul>
+        <li id="r1">标题是判断：这一年真正变的，是 AI 开始交付东西</li>
+        <li id="r2">开场写死受众与合作方、以及要他们做什么</li>
+        <li id="r3">每个数字带来源，判断与统计分开标</li>
+        <li id="r4">三页样稿先过目，方向不对不铺量</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="chip"><b>标题</b>　名词 → 判断</div>
+    <div class="chip"><b>受众</b>　没说 → 写给谁听、要他们做什么</div>
+    <div class="chip"><b>数字</b>　无源 → 每个数字可追溯</div>
+    <div class="chip"><b>返工</b>　整体重做 → 只改 P07</div>
+  </footer>
+</div>
+
+<script>
+const L = {
+  zh: {
+    title: "同一句话，两种结果",
+    sub: "同一主题、同样 20 分钟，两种产出",
+    lt: "不加任何约束", ltag: "典型结构 · 未经验收",
+    l1: "标题全是分类名：行业概况、技术趋势、应用场景",
+    l2: "没有一页回答“所以你要做什么”",
+    l3: "数据写“显著提升”，找不到出处",
+    l4: "每页一个色块，看不出哪里是重点",
+    rt: "走完 G-resentation", rtag: "14 页 · 冻结编号",
+    r1: "标题是判断：这一年真正变的，是 AI 开始交付东西",
+    r2: "开场写死受众与合作方，以及要他们做什么",
+    r3: "每个数字带来源，判断与统计分开标",
+    r4: "三页样稿先过目，方向不对不铺量",
+    c1: ["标题", "名词 → 判断"], c2: ["受众", "没说 → 写给谁听、要他们做什么"],
+    c3: ["数字", "无源 → 每个数字可追溯"], c4: ["返工", "整体重做 → 只改 P07"]
+  },
+  en: {
+    title: "One sentence. Two outcomes.",
+    sub: "Same topic, same 20 minutes, two different decks",
+    lt: "No constraints", ltag: "typical output · unchecked",
+    l1: "Every title is a category: industry overview, tech trends, use cases",
+    l2: "Not one slide answers \"so what should we do\"",
+    l3: "Claims say \"significantly improved\" with no source",
+    l4: "One gradient card per slide — nothing tells you what matters",
+    rt: "Through G-resentation", rtag: "14 slides · frozen IDs",
+    r1: "Titles argue: what actually changed is that AI ships things",
+    r2: "Slide one names the audience and what you want them to do",
+    r3: "Every number carries a source; judgment is labelled as judgment",
+    r4: "Three sample pages get approved before anything scales",
+    c1: ["Titles", "nouns → arguments"], c2: ["Audience", "unstated → named, with an ask"],
+    c3: ["Numbers", "unsourced → traceable"], c4: ["Rework", "start over → edit P07"]
+  }
+};
+const lang = (new URLSearchParams(location.search).get("lang") === "en") ? "en" : "zh";
+const t = L[lang];
+const set = (id, v) => document.getElementById(id).textContent = v;
+set("title", t.title); set("sub", t.sub);
+set("l-title", t.lt); set("l-tag", t.ltag);
+set("r-title", t.rt); set("r-tag", t.rtag);
+["l1","l2","l3","l4","r1","r2","r3","r4"].forEach(k => set(k, t[k]));
+document.querySelectorAll(".chip").forEach((el, i) => {
+  const pair = t["c" + (i + 1)];
+  el.innerHTML = `<b>${pair[0]}</b>　${pair[1]}`;
+});
+document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+</script>
+</body>
+</html>

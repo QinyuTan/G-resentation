@@ -6,6 +6,8 @@ G-resentation 在你的 AI 动手之前先拦住它，把需求问到说不出�
 
 它不是又一个"输入主题、输出幻灯片"的生成器。它管的是从空白到交得出手之间那段最容易返工的路。
 
+![G-resentation 能力展示：六种页面版式与关键数字](docs/images/hero-zh.png)
+
 ## 它解决的问题
 
 一句话丢给 AI："帮我做个 PPT。"你会拿到四十页，结构是新闻稿式的，每一页都在介绍，没有一页在说服。改到第三版，已经不像你要的东西了。
@@ -13,6 +15,14 @@ G-resentation 在你的 AI 动手之前先拦住它，把需求问到说不出�
 这不是模型笨。是你没说给谁看、什么场合、听完要他们干什么，AI 只能按平均水平补。补出来的东西，谁也不得罪，也就谁也不打动。
 
 G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
+
+## 同一句话，两种结果
+
+![同一句话，两种结果：无约束生成 vs 走完流程](docs/images/compare-zh.png)
+
+左边不是被刻意做丑的，它是不加约束时最省事的输出形态：标题是分类名，每页都正确，也每页都不推动任何决定。右边是同一主题走完流程的第十三页——标题是判断，数字有出处，页脚写清来源。
+
+需要说明的是：左图是代表性示意，不是某一次具体生成结果的逐字复刻；右图是真实产出的一页。
 
 ## 五个停顿
 
@@ -115,7 +125,13 @@ MIT，见 [LICENSE](LICENSE)。
 
 **Most bad decks don't fail on layout. They fail because nobody asked who the deck is for and what the audience should do afterwards.**
 
+![G-resentation: six page types and the numbers behind them](docs/images/hero-en.png)
+
 G-resentation (from *grill me in presentation*) stops your agent before it starts generating. It interviews you until the brief is unambiguous, freezes the page numbers, routes the build to the right tool, and checks the result against a fixed list.
+
+![One sentence, two outcomes](docs/images/compare-en.png)
+
+The left side isn't a strawman — it's the cheapest correct-looking output when nothing is constrained: every slide is titled with a category, every slide is true, none of them moves a decision. The left image is a representative illustration, not a verbatim reproduction of one specific run; the right image is real output.
 
 Not another topic-to-slides generator. It owns the part between a blank page and something you can hand to a client.
 
