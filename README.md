@@ -1,4 +1,4 @@
-# G-resentation
+# G-resentation （grill me in pre)
 
 **做砸的 PPT，问题通常不在排版，在于没人问清楚这份东西给谁看、听完要他们做什么。**
 
