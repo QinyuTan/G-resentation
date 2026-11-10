@@ -29,3 +29,7 @@ node render-deck.js /path/to/deck/index.html ../deck
 渲染固定以 2 倍像素密度输出：1280 画布得到 2560 宽的 PNG，高分屏和放大看都不糊。别用 1 倍截图替代，字会发虚。
 
 演示页面那一组默认取第 1、3、6、9、11、12、14 页，改 `render-deck.js` 顶部的 `TARGETS` 即可。
+
+## 图片更新了但页面还是旧的
+
+README 引用的是同一路径，GitHub 的图片缓存可能几小时内还给旧版本。要立刻生效，给文件加个版本后缀（如 `scenarios-zh-v2.png`），同时改 README 和本目录 `render-figures.js` 里的输出名。缓存按 URL 走，换名即失效。

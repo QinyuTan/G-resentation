@@ -54,7 +54,7 @@ G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
 
 ## 七种场合，一套流程
 
-![七种场合，一套流程](docs/images/scenarios-zh.png)
+![七种场合，一套流程](docs/images/scenarios-zh-v2.png)
 
 场景按"谁在场 × 要达成什么"划分，两两不重叠，合起来覆盖绝大多数情况。同一句"做个 AI 行业现状"，讲给客户和讲给同事，结构完全不同——不只是换配色。
 
@@ -185,7 +185,7 @@ The left side isn't a strawman — it's the cheapest correct-looking output when
 
 **Seven occasions, one pipeline.** Split by *who is in the room, and what must happen* — no overlaps. The same topic becomes a different deck for clients and for colleagues; not just a palette swap.
 
-![Seven occasions, one pipeline](docs/images/scenarios-en.png)
+![Seven occasions, one pipeline](docs/images/scenarios-en-v2.png)
 
 | # | Occasion | In the room | Must happen | Sample |
 |---|---|---|---|---|
