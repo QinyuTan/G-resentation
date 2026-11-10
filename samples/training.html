@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>把需求问清楚 · 内部培训</title>
+<style>
+  :root {
+    --paper:#FAF7F2; --ink:#1F2937; --muted:#6B7280; --faint:#9CA3AF;
+    --accent:#B45309; --accent-soft:#FDF1E3; --rule:#E3DBCE;
+    --stage-bg:#EFE9DF; --slide-bg:#FAF7F2;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:var(--stage-bg); }
+  .deck-viewport { position:fixed; inset:0; overflow:hidden; background:var(--stage-bg); }
+  .deck-stage { position:absolute; left:0; top:0; width:1440px; height:1080px; overflow:hidden; transform-origin:0 0; background:var(--slide-bg); }
+  .slide {
+    position:absolute; inset:0; width:1440px; height:1080px; overflow:hidden;
+    display:block; visibility:hidden; opacity:0; pointer-events:none; background:var(--slide-bg);
+    padding:88px 96px; color:var(--ink);
+  }
+  .slide.active, .slide.visible { visibility:visible; opacity:1; pointer-events:auto; z-index:1; }
+
+  .serif { font-family:"Source Han Serif SC","Songti SC","SimSun",serif; }
+  body { font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; }
+
+  .kicker { font-size:20px; letter-spacing:.24em; color:var(--accent); }
+  h1 { font-size:76px; line-height:1.2; letter-spacing:-.01em; margin-top:26px; font-weight:600; }
+  h2 { font-size:52px; line-height:1.3; font-weight:600; letter-spacing:-.01em; }
+  .lede { font-size:26px; line-height:1.7; color:var(--muted); margin-top:26px; max-width:1080px; }
+
+  .cover { display:flex; flex-direction:column; justify-content:center; }
+  .cover .rule { width:120px; height:6px; background:var(--accent); margin:34px 0; }
+  .cover .meta { position:absolute; left:96px; right:96px; bottom:88px; display:flex; justify-content:space-between; font-size:20px; color:var(--faint); border-top:1px solid var(--rule); padding-top:20px; }
+
+  .head { display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:22px; }
+  .head .num { font-size:20px; color:var(--faint); letter-spacing:.18em; }
+  .body { margin-top:56px; }
+
+  .goals { display:flex; flex-direction:column; gap:0; }
+  .goal { display:grid; grid-template-columns:90px 1fr; gap:26px; padding:30px 0; border-bottom:1px solid var(--rule); align-items:start; }
+  .goal .n { font-size:40px; color:var(--accent); font-family:"Source Han Serif SC",serif; }
+  .goal .t { font-size:30px; line-height:1.5; }
+  .goal .d { font-size:22px; color:var(--muted); margin-top:8px; line-height:1.6; }
+
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .step { background:var(--accent-soft); padding:30px 28px; border-top:4px solid var(--accent); }
+  .step .n { font-size:16px; letter-spacing:.2em; color:var(--accent); }
+  .step h3 { font-size:28px; margin:12px 0 10px; font-weight:600; }
+  .step p { font-size:21px; line-height:1.65; color:#4B5563; }
+
+  .example { display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .pane { border:1px solid var(--rule); padding:30px; }
+  .pane h4 { font-size:20px; letter-spacing:.12em; color:var(--faint); margin-bottom:18px; }
+  .pane.bad { background:#FBF3F1; border-color:#E8CFC9; }
+  .pane.good { background:#F2F7F0; border-color:#CFE0C8; }
+  .pane p { font-size:24px; line-height:1.7; }
+  .pane .why { font-size:19px; color:var(--muted); margin-top:16px; line-height:1.6; }
+
+  table.mistakes { width:100%; border-collapse:collapse; }
+  table.mistakes th, table.mistakes td { text-align:left; padding:20px 18px; font-size:22px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  table.mistakes th { font-size:17px; letter-spacing:.1em; color:var(--faint); font-weight:500; }
+  table.mistakes td:first-child { font-weight:600; width:28%; }
+
+  .exercise { display:flex; flex-direction:column; gap:22px; }
+  .ex { display:grid; grid-template-columns:64px 1fr 200px; gap:24px; align-items:center; padding:26px 24px; background:#fff; border:1px solid var(--rule); }
+  .ex .n { font-size:26px; color:var(--accent); }
+  .ex .t { font-size:25px; line-height:1.5; }
+  .ex .tag { font-size:19px; color:var(--muted); text-align:right; }
+
+  .foot { position:absolute; left:96px; right:96px; bottom:60px; font-size:19px; color:var(--faint); border-top:1px solid var(--rule); padding-top:16px; }
+
+  .progress { position:fixed; left:0; top:0; height:3px; background:var(--accent); width:0; z-index:10; transition:width .3s ease; }
+  @media print { .progress { display:none; } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide cover active visible">
+      <div class="kicker">内部培训 · 需求澄清</div>
+      <h1 class="serif">把需求问清楚，<br>比做得好更重要</h1>
+      <div class="rule"></div>
+      <p class="lede">90 分钟，学会三件事：判断这活该不该做、问出真正要什么、做完能验收。</p>
+      <div class="meta"><span>面向：项目负责人与需求方</span><span>01 / 06</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>学完你能做到什么</h2><span class="num">02 / 06</span></div>
+      <div class="body">
+        <div class="goals">
+          <div class="goal"><div class="n">一</div><div><div class="t">判断一份材料值不值得做</div><div class="d">用"错了能不能改回来"一条标准，替代拍脑袋。</div></div></div>
+          <div class="goal"><div class="n">二</div><div><div class="t">问出对方真正要的东西</div><div class="d">从"做个介绍"问到"听完要他们做什么决定"。</div></div></div>
+          <div class="goal"><div class="n">三</div><div><div class="t">做完能说清对不对</div><div class="d">事先定好验收口径，而不是交付那天才吵。</div></div></div>
+        </div>
+      </div>
+      <div class="foot">这三件事都不需要工具，只需要在动手前多问三句。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>三步法</h2><span class="num">03 / 06</span></div>
+      <div class="body">
+        <div class="steps">
+          <div class="step"><div class="n">STEP 1</div><h3>定档位</h3><p>做错了能改吗？能改就别过度设计，不能改就把问题问到底。</p></div>
+          <div class="step"><div class="n">STEP 2</div><h3>要答案</h3><p>问场合、问对象、问他们听完要做什么，再问必须出现的事实。</p></div>
+          <div class="step"><div class="n">STEP 3</div><h3>定验收</h3><p>动手前说清"什么样的结果算成"，让后面所有争论有依据。</p></div>
+        </div>
+        <p class="lede">顺序不能倒。先定验收再动手，返工率会明显下降。</p>
+      </div>
+      <div class="foot">三步法来自过去项目里最常见的三类返工：做多了、做偏了、做完说不清。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>同一句话，两种问法</h2><span class="num">04 / 06</span></div>
+      <div class="body">
+        <div class="example">
+          <div class="pane bad">
+            <h4>只问一句</h4>
+            <p>"你想要什么样的？"</p>
+            <p class="why">对方通常回"简洁一点、专业一点"。这两个词没法执行，做出来一定被推翻。</p>
+          </div>
+          <div class="pane good">
+            <h4>问到他必须给答案</h4>
+            <p>"这份给谁看？他们听完要做什么决定？如果只能记住一句话，是哪句？"</p>
+            <p class="why">三个问题都有唯一答案，答不上来就说明需求还没成形，此时动手必返工。</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot">练习：把"做得好看一点"翻译成三个可验证的要求。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>四个常见错误</h2><span class="num">05 / 06</span></div>
+      <div class="body">
+        <table class="mistakes">
+          <tr><th>错误</th><th>表现</th><th>代价</th></tr>
+          <tr><td>替对方假设</td><td>没问就默认"给领导看"</td><td>方向错，整体重做</td></tr>
+          <tr><td>先做后想</td><td>拿到题目直接开始排版</td><td>内容返工，排版白做</td></tr>
+          <tr><td>不问验收</td><td>交付当天才知道标准</td><td>无限修改</td></tr>
+          <tr><td>全都答应</td><td>"这个也加一页"</td><td>页数膨胀，重点消失</td></tr>
+        </table>
+      </div>
+      <div class="foot">红色那一列不是理论，是过去一年实际发生过的返工原因。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>现场练习</h2><span class="num">06 / 06</span></div>
+      <div class="body">
+        <div class="exercise">
+          <div class="ex"><div class="n">01</div><div class="t">"下周给客户讲一下我们新上线的服务"</div><div class="tag">先问哪三句？</div></div>
+          <div class="ex"><div class="n">02</div><div class="t">"老板要一份行业分析，越快越好"</div><div class="tag">该不该接？</div></div>
+          <div class="ex"><div class="n">03</div><div class="t">"把上次那份改一下，换成新数据"</div><div class="tag">属于哪种活？</div></div>
+        </div>
+        <p class="lede">三人一组，每组选一个，写出你要问的问题和你的验收口径。</p>
+      </div>
+      <div class="foot">提示：第 3 题不是"从头做"，是第三种情况——只需要改，不需要重来。</div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+class Deck {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.stage = document.getElementById('stage');
+    this.progress = document.getElementById('progress');
+    this.i = 0;
+    const fit = () => {
+      const f = Math.min(innerWidth / 1440, innerHeight / 1080);
+      this.stage.style.transform = `translate(${(innerWidth - 1440 * f) / 2}px, ${(innerHeight - 1080 * f) / 2}px) scale(${f})`;
+    };
+    fit(); addEventListener('resize', fit);
+    addEventListener('keydown', (e) => {
+      if (['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)) { e.preventDefault(); this.go(this.i + 1); }
+      if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.i - 1); }
+      if (e.key === 'Home') this.go(0);
+      if (e.key === 'End') this.go(this.slides.length - 1);
+      if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    });
+    this.go(0);
+  }
+  go(n) {
+    this.i = Math.max(0, Math.min(n, this.slides.length - 1));
+    this.slides.forEach((s, k) => { s.classList.toggle('active', k === this.i); s.classList.toggle('visible', k === this.i); });
+    this.progress.style.width = ((this.i + 1) / this.slides.length * 100) + '%';
+  }
+}
+new Deck();
+</script>
+</body>
+</html>

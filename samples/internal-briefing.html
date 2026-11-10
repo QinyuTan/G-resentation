@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 这一年的变化，对我们意味着什么</title>
+<style>
+  :root {
+    --bg:#120C0A; --paper:#F7F3EE; --ink:#F7F3EE; --muted:#B8A79A;
+    --accent:#FF5A1F; --accent-2:#FFD166; --rule:rgba(247,243,238,.16);
+    --stage-bg:#0A0706; --slide-bg:#120C0A;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:var(--stage-bg); }
+  .deck-viewport { position:fixed; inset:0; overflow:hidden; background:var(--stage-bg); }
+  .deck-stage { position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden; transform-origin:0 0; background:var(--slide-bg); }
+  .slide {
+    position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden;
+    display:block; visibility:hidden; opacity:0; pointer-events:none; background:var(--slide-bg);
+    padding:104px 128px; color:var(--ink);
+    font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  .slide.active, .slide.visible { visibility:visible; opacity:1; pointer-events:auto; z-index:1; }
+
+  .tag { font-size:22px; letter-spacing:.3em; color:var(--accent); }
+  h1 { font-size:124px; line-height:1.04; letter-spacing:-.035em; font-weight:800; margin-top:30px; }
+  h2 { font-size:80px; line-height:1.14; letter-spacing:-.02em; font-weight:800; }
+  .lede { font-size:34px; line-height:1.55; color:var(--muted); margin-top:34px; max-width:1280px; }
+
+  .cover { display:flex; flex-direction:column; justify-content:center; }
+  .cover h1 span { color:var(--accent); }
+  .cover .meta { position:absolute; left:128px; right:128px; bottom:100px; display:flex; justify-content:space-between; font-size:22px; color:var(--muted); border-top:1px solid var(--rule); padding-top:24px; }
+
+  .head { display:flex; align-items:baseline; justify-content:space-between; }
+  .head .num { font-size:22px; color:var(--muted); letter-spacing:.2em; }
+  .body { margin-top:64px; }
+
+  .three { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+  .card { border-left:3px solid var(--accent); padding:8px 0 8px 26px; }
+  .card .k { font-size:44px; font-weight:800; color:var(--accent-2); }
+  .card .t { font-size:30px; margin-top:12px; line-height:1.4; }
+  .card .d { font-size:22px; color:var(--muted); margin-top:12px; line-height:1.6; }
+
+  .quote { font-size:52px; line-height:1.45; font-weight:700; max-width:1500px; }
+  .quote small { display:block; font-size:22px; font-weight:400; color:var(--muted); margin-top:26px; letter-spacing:.04em; }
+
+  .rows { display:flex; flex-direction:column; }
+  .r { display:grid; grid-template-columns:120px 1fr 260px; gap:40px; align-items:baseline; padding:30px 0; border-bottom:1px solid var(--rule); }
+  .r:last-child { border:none; }
+  .r .i { font-size:40px; font-weight:800; color:var(--accent); }
+  .r .t { font-size:34px; line-height:1.4; }
+  .r .s { font-size:24px; color:var(--muted); text-align:right; }
+
+  .call { display:flex; align-items:flex-end; gap:60px; }
+  .call .big { font-size:104px; line-height:1.1; font-weight:800; letter-spacing:-.03em; }
+  .call .big em { font-style:normal; color:var(--accent); }
+  .plan { display:grid; grid-template-columns:repeat(3,1fr); gap:34px; margin-top:56px; }
+  .plan div { border-top:2px solid var(--accent); padding-top:20px; }
+  .plan b { display:block; font-size:24px; color:var(--accent-2); letter-spacing:.08em; }
+  .plan span { display:block; font-size:26px; line-height:1.5; margin-top:10px; }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1); }
+  .slide.visible .reveal { opacity:1; transform:none; }
+  .slide.visible .reveal:nth-child(2){transition-delay:.08s}
+  .slide.visible .reveal:nth-child(3){transition-delay:.16s}
+
+  .progress { position:fixed; left:0; top:0; height:3px; background:var(--accent); width:0; z-index:10; transition:width .3s ease; }
+  @media print { .progress{display:none} }
+  @media (prefers-reduced-motion: reduce) { * { animation:none!important; transition:none!important; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide cover active visible">
+      <div class="tag">内部宣讲 · 全员会</div>
+      <h1>AI 这一年的变化，<br>对我们意味着<span>什么</span></h1>
+      <p class="lede">不讲行业榜单，只讲一件事：下个季度，我们先用它做什么。</p>
+      <div class="meta"><span>2026-11 · 25 分钟</span><span>01 / 08</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>不是要不要用，是先在哪儿用</h2><span class="num">02 / 08</span></div>
+      <div class="body">
+        <div class="quote reveal">模型三个月换一次，<br>我们等不起"全公司都准备好了"。
+          <small>与其争论要不要上，不如先在一个环节跑出结果，再决定扩不扩。</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>外面发生了什么</h2><span class="num">03 / 08</span></div>
+      <div class="body">
+        <div class="three">
+          <div class="card reveal"><div class="k">01</div><div class="t">从演示到交付</div><div class="d">模型已经能端到端做出可制造的原型，不只是画图。</div></div>
+          <div class="card reveal"><div class="k">02</div><div class="t">从单个到成群</div><div class="d">上千个智能体并行跑任务，已经有人这么干活了。</div></div>
+          <div class="card reveal"><div class="k">03</div><div class="t">从通用到分层</div><div class="d">贵模型做难题，便宜模型做高频，账才算得过来。</div></div>
+        </div>
+        <p class="lede">这三件事合起来只有一句话：它开始能干完整的活了。</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>客户已经在问我们了</h2><span class="num">04 / 08</span></div>
+      <div class="body">
+        <div class="rows">
+          <div class="r reveal"><div class="i">1</div><div class="t">"你们内部用 AI 吗？效果怎么样？"</div><div class="s">销售最常被问</div></div>
+          <div class="r reveal"><div class="i">2</div><div class="t">"能不能给我们看看你们自己做的案例？"</div><div class="s">提案被追问</div></div>
+          <div class="r reveal"><div class="i">3</div><div class="t">"你们的交付周期能再快一点吗？"</div><div class="s">续约谈判</div></div>
+        </div>
+        <p class="lede">我们答不上来，不是能力问题，是还没有一个能拿出来说的例子。</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>手上有三个能马上用的</h2><span class="num">05 / 08</span></div>
+      <div class="body">
+        <div class="three">
+          <div class="card reveal"><div class="k">A</div><div class="t">材料与汇报</div><div class="d">周报、复盘、客户材料的第一稿，从两小时压到二十分钟。</div></div>
+          <div class="card reveal"><div class="k">B</div><div class="t">信息整理</div><div class="d">访谈录音、竞品动态、需求邮件，抽成结构化清单。</div></div>
+          <div class="card reveal"><div class="k">C</div><div class="t">代码与配置</div><div class="d">脚本、查询、配置修改，先让它写第一版，人只做审。</div></div>
+        </div>
+        <p class="lede">共同点：高频、错了能改、结果好坏一眼能看出来。</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>一个 90 天试点</h2><span class="num">06 / 08</span></div>
+      <div class="body">
+        <div class="plan">
+          <div><b>第 1–30 天</b><span>选一个场景，定三组评估题，先让五个人用起来。</span></div>
+          <div><b>第 31–60 天</b><span>把踩过的坑写成规范，回答"怎么用才对"。</span></div>
+          <div><b>第 61–90 天</b><span>看两个数：单次耗时、返工次数。好就扩，不好就停。</span></div>
+        </div>
+        <p class="lede">不新增人头，不新买工具，用现成的额度先跑。</p>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>不做的代价</h2><span class="num">07 / 08</span></div>
+      <div class="body">
+        <div class="quote reveal">不是浪费钱，<br>是每次客户问起，我们都只能回答"在探索"。
+          <small>一个季度之后，别人已经在拿案例谈续约，我们还在讲趋势。</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>所以</h2><span class="num">08 / 08</span></div>
+      <div class="body">
+        <div class="call">
+          <div class="big reveal">下周一开始，<br><em>三个人，一个场景</em>。<br>九十天后拿结果说话。</div>
+        </div>
+        <p class="lede">愿意报名的，会后找我；被点到的，我会单独找你聊十分钟。</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+class Deck {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.stage = document.getElementById('stage');
+    this.progress = document.getElementById('progress');
+    this.i = 0;
+    const fit = () => {
+      const f = Math.min(innerWidth / 1920, innerHeight / 1080);
+      this.stage.style.transform = `translate(${(innerWidth - 1920 * f) / 2}px, ${(innerHeight - 1080 * f) / 2}px) scale(${f})`;
+    };
+    fit(); addEventListener('resize', fit);
+    addEventListener('keydown', (e) => {
+      if (['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)) { e.preventDefault(); this.go(this.i + 1); }
+      if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.i - 1); }
+      if (e.key === 'Home') this.go(0);
+      if (e.key === 'End') this.go(this.slides.length - 1);
+      if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    });
+    this.go(0);
+  }
+  go(n) {
+    this.i = Math.max(0, Math.min(n, this.slides.length - 1));
+    this.slides.forEach((s, k) => { s.classList.toggle('active', k === this.i); s.classList.toggle('visible', k === this.i); });
+    this.progress.style.width = ((this.i + 1) / this.slides.length * 100) + '%';
+  }
+}
+new Deck();
+</script>
+</body>
+</html>

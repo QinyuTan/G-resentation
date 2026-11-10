@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q3 交付复盘 · 客户成功组</title>
+<style>
+  :root{--ink:#0F2433;--muted:#5B6B7C;--faint:#8A94A0;--accent:#0E7490;--accent-soft:#E6F4F8;--rule:#D7DEE4;--panel:#F5F7F9;--stage:#0A1118;--slide:#FFFFFF;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--stage)}
+  .deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage)}
+  .deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide)}
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide);padding:96px 120px;color:var(--ink);font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+  .slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+  .kicker{font-size:22px;letter-spacing:.22em;color:var(--accent)}
+  h1{font-size:96px;line-height:1.12;letter-spacing:-.02em;font-weight:700;margin-top:26px}
+  h2{font-size:62px;line-height:1.24;letter-spacing:-.015em;font-weight:700}
+  .lede{font-size:28px;line-height:1.6;color:var(--muted);margin-top:24px;max-width:1300px}
+  .cover{display:flex;flex-direction:column;justify-content:center}
+  .cover .meta{position:absolute;left:120px;right:120px;bottom:96px;display:flex;justify-content:space-between;font-size:22px;color:var(--faint);border-top:1px solid var(--rule);padding-top:22px}
+  .head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:20px}
+  .head .num{font-size:22px;color:var(--faint);letter-spacing:.18em}
+  .body{margin-top:52px}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:22px 20px;font-size:23px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:19px;color:var(--faint);font-weight:500;letter-spacing:.08em}
+  td:first-child{font-weight:600;width:26%}
+  .good{color:#0E7490}
+  .bad{color:#B42318}
+  .rows{display:flex;flex-direction:column}
+  .r{display:grid;grid-template-columns:1fr 520px;gap:50px;padding:28px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+  .r .t{font-size:30px;line-height:1.5}
+  .r .v{font-size:26px;color:var(--muted);text-align:right}
+  .stat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:16px}
+  .stat div{background:var(--panel);padding:30px}
+  .stat b{display:block;font-size:52px;font-weight:700}
+  .stat span{display:block;font-size:20px;color:var(--muted);margin-top:10px}
+  .foot{position:absolute;left:120px;right:120px;bottom:56px;font-size:19px;color:var(--faint);border-top:1px solid var(--rule);padding-top:14px}
+  .progress{position:fixed;left:0;top:0;height:3px;background:var(--accent);width:0;z-index:10;transition:width .3s ease}
+  @media print{.progress{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide cover active visible">
+      <div class="kicker">交付复盘 · Q3 · 客户成功组</div>
+      <h1>十二家客户里，<br>九家续约，三家卡在同一个环节</h1>
+      <p class="lede">这份复盘只回答一个问题：那三家为什么卡住，下次怎么不卡。</p>
+      <div class="meta"><span>2026-11 · 面向：客户方项目负责人</span><span>01 / 05</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>先说结果：交付准时率 92%，续约率 75%</h2><span class="num">02 / 05</span></div>
+      <div class="body">
+        <div class="stat">
+          <div><b>12</b><span>家客户 · 本季度交付</span></div>
+          <div><b>92%</b><span>按时交付（合同节点为准）</span></div>
+          <div><b>75%</b><span>续约（9 / 12）</span></div>
+        </div>
+        <table style="margin-top:44px">
+          <tr><th>指标</th><th>Q2</th><th>Q3</th><th>变化</th></tr>
+          <tr><td>按时交付率</td><td>88%</td><td>92%</td><td class="good">+4pt</td></tr>
+          <tr><td>首轮验收通过率</td><td>64%</td><td>71%</td><td class="good">+7pt</td></tr>
+          <tr><td>续约率</td><td>83%</td><td>75%</td><td class="bad">−8pt</td></tr>
+        </table>
+      </div>
+      <div class="foot">数据口径：合同到期日为节点；续约以新合同签署为准。来源：内部交付台账（本页数据为示例）。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>没续约的三家，卡在同一个位置：验收之后没人接手</h2><span class="num">03 / 05</span></div>
+      <div class="body">
+        <div class="rows">
+          <div class="r"><div class="t">A 客户：验收通过后，使用率两周内掉到 30%</div><div class="v">问题不在交付，在交接</div></div>
+          <div class="r"><div class="t">B 客户：需求变更走了线下沟通，没有留痕</div><div class="v">责任边界变模糊</div></div>
+          <div class="r"><div class="t">C 客户：对接人换了两次，第二次没人做交接</div><div class="v">关系重建成本高</div></div>
+        </div>
+      </div>
+      <div class="foot">以上为三家客户的共性问题归纳，个案细节已脱敏。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>下季度改三件事，每件都有负责人和时间点</h2><span class="num">04 / 05</span></div>
+      <div class="body">
+        <table>
+          <tr><th>改动</th><th>解决什么</th><th>负责人</th><th>完成时间</th></tr>
+          <tr><td>验收后 30 天回访</td><td>使用率下滑无人发现</td><td>客户成功</td><td>Q4 第 2 周</td></tr>
+          <tr><td>需求变更走书面确认</td><td>责任边界模糊</td><td>项目经理</td><td>Q4 第 1 周</td></tr>
+          <tr><td>对接人变更交接清单</td><td>关系重建成本</td><td>交付负责人</td><td>Q4 第 3 周</td></tr>
+        </table>
+      </div>
+      <div class="foot">三项均已排期；未完成会在下季度复盘里标红，不在这里承诺结果。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>对贵司意味着什么</h2><span class="num">05 / 05</span></div>
+      <div class="body">
+        <div class="rows">
+          <div class="r"><div class="t">验收之后，我们会主动回来一次，不等你们提</div><div class="v">Q4 起执行</div></div>
+          <div class="r"><div class="t">任何变更都要有书面确认，双方各留一份</div><div class="v">本周生效</div></div>
+          <div class="r"><div class="t">对接人变动，我们会在五个工作日内重做交接</div><div class="v">写进合同附件</div></div>
+        </div>
+      </div>
+      <div class="foot">以上三项如果执行不到位，欢迎直接找项目负责人，不必走流程。</div>
+    </section>
+
+  </main>
+</div>
+<script>
+class Deck{constructor(){this.s=Array.from(document.querySelectorAll('.slide'));this.st=document.getElementById('stage');this.p=document.getElementById('progress');this.i=0;
+const fit=()=>{const f=Math.min(innerWidth/1920,innerHeight/1080);this.st.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`};fit();addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1)}if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.s.length-1);if(e.key.toLowerCase()==='f')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()});this.go(0)}
+go(n){this.i=Math.max(0,Math.min(n,this.s.length-1));this.s.forEach((el,k)=>{el.classList.toggle('active',k===this.i);el.classList.toggle('visible',k===this.i)});this.p.style.width=((this.i+1)/this.s.length*100)+'%'}}
+new Deck();
+</script>
+</body>
+</html>
