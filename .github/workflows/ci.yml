@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 自检脚本能跑
+        run: python skills/g-resentation/scripts/doctor.py
+
+      - name: 示例逐页稿能过机检
+        run: python skills/g-resentation/scripts/check_outline.py skills/g-resentation/examples/minimal
+
+      - name: 建项目 → 冻结前拦截 → 留版 → 复检通过的完整往返
+        run: |
+          set -e
+          S=skills/g-resentation/scripts
+          T=$(mktemp -d)
+          python "$S/new_deck.py" smoke --root "$T"
+
+          # 在模板基础上写一页有效内容
+          python - "$T" <<'PY'
+          import sys
+          from pathlib import Path
+          deck = Path(sys.argv[1]) / "decks" / "smoke"
+          p = deck / "outline.md"
+          t = p.read_text(encoding="utf-8").replace("- **状态**：草稿", "- **状态**：已冻结")
+          t = t.split("---")[0] + """
+## P01 冒烟测试页
+
+1. **想表达的意思**：验证脚本可用
+2. **屏幕文字**：冒烟测试
+3. **数据与来源**：无
+4. **图片素材**：待补充
+5. **建议布局**：居中
+6. **演讲备注**：无
+"""
+          p.write_text(t, encoding="utf-8")
+          PY
+
+          # 冻结但无基线 → 必须失败
+          if python "$S/check_outline.py" "$T/decks/smoke"; then
+            echo "预期拦截未发生"; exit 1
+          fi
+
+          # 留版后复检 → 必须通过
+          python "$S/snapshot.py" "$T/decks/smoke" outline
+          python "$S/check_outline.py" "$T/decks/smoke"

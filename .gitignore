@@ -1,0 +1,20 @@
+# 运行产物
+decks/
+out/
+versions/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 编辑器和系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 本地临时
+*.tmp
+.frontend-slides/
