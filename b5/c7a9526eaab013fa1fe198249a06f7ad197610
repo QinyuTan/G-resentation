@@ -1,0 +1,44 @@
+docs/images/src/scenarios.html
+  s_a021e8a85011df::t_e9b3470e90f464 1-121
+samples/decision-brief/index.html
+  s_a021e8a85011df::t_eb86ad29ce217c 1-152
+README.md
+  s_a021e8a85011df::t_dc90b64cc92f11 145
+  s_a021e8a85011df::t_301dba27845d6d 55,57,59,61-69,71,184,186,188-196,198
+samples/README.md
+  s_a021e8a85011df::t_f7be8ec9e25693 3,5-7,9-15,17,19,21,31-33
+samples/delivery-review/outline.md
+  s_a021e8a85011df::t_ab0370af400dfd 1-43
+samples/delivery-review/index.html
+  s_a021e8a85011df::t_0081c774577a1c 1-121
+docs/images/src/render-figures.js
+  s_a021e8a85011df::t_dc90b64cc92f11 20-21
+samples/decision-brief/brief.md
+  s_a021e8a85011df::t_4d02b1bf622c09 1-11
+samples/self-read/outline.md
+  s_a021e8a85011df::t_ab0370af400dfd 1-43
+samples/decision-brief/outline.md
+  s_a021e8a85011df::t_ab0370af400dfd 1-43
+samples/self-read/brief.md
+  s_a021e8a85011df::t_4d02b1bf622c09 1-11
+samples/self-read/index.html
+  s_a021e8a85011df::t_0f1c9f152c0c16 1-136
+samples/delivery-review/brief.md
+  s_a021e8a85011df::t_4d02b1bf622c09 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "b5c7a9526eaab013fa1fe198249a06f7ad197610",
+  "prompts": {},
+  "sessions": {
+    "s_a021e8a85011df": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_d5ldynw7zo2i",
+        "model": "auto(free)"
+      },
+      "human_author": "Terri Tan <QinyuTan@users.noreply.github.com>"
+    }
+  }
+}
