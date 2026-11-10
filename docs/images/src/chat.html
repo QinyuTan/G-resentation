@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>grill 对话还原</title>
+<style>
+  :root{
+    --bg:#F7F8FA; --card:#FFFFFF; --ink:#0F1A24; --muted:#6B7785; --faint:#9AA5B1;
+    --accent:#2251FF; --accent-soft:#EAF0FF; --line:#E6EAEF; --warm:#C2410C; --warm-soft:#FFF4E5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:900px;background:var(--bg)}
+  body{font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+  .page{width:900px;padding:30px 40px 26px;display:flex;flex-direction:column;background:var(--bg);margin-bottom:24px}
+  header{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}
+  h1{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .sub{font-size:11.5px;color:var(--faint)}
+  .chat{margin-top:14px;display:flex;flex-direction:column;gap:11px}
+  .msg{display:flex;gap:9px;align-items:flex-start}
+  .msg.me{flex-direction:row-reverse}
+  .avatar{width:26px;height:26px;border-radius:50%;flex:0 0 26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+  .ai .avatar{background:var(--accent)}
+  .me .avatar{background:#2E3A48}
+  .bubble{max-width:720px;background:var(--card);border:1px solid var(--line);border-radius:12px;border-top-left-radius:4px;padding:10px 14px;font-size:13.5px;line-height:1.6}
+  .me .bubble{background:var(--accent);border-color:var(--accent);color:#fff;border-radius:12px;border-top-right-radius:4px}
+  .who{font-size:10.5px;color:var(--faint);margin-bottom:3px}
+  .me .who{color:rgba(255,255,255,.72);text-align:right}
+  .qtag{display:inline-block;font-size:10px;letter-spacing:.1em;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:2px 6px;margin-bottom:6px}
+  .qtag.gate{color:var(--warm);background:var(--warm-soft)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+  .opt{border:1px solid var(--line);border-radius:7px;padding:6px 9px;font-size:11.5px;color:var(--muted);background:#FBFCFD}
+  .opt b{display:block;font-size:12px;color:var(--ink);font-weight:600}
+  .opt.on{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.on b{color:var(--accent)}
+  .opt.on::after{content:"✓";float:right;color:var(--accent);font-weight:700}
+  .summary{background:var(--warm-soft);border:1px solid #F3D3A8;border-radius:9px;padding:10px 12px;font-size:12.5px;line-height:1.7;margin-top:6px}
+  .summary b{color:var(--warm)}
+  footer{margin-top:12px;border-top:1px solid var(--line);padding-top:10px;display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="page" id="p1">
+  <header>
+    <h1>一次真实的 Grill（上）：先定轻重，再问受众</h1>
+    <div class="sub">2026-11-10 · 客户提案 · 14 页</div>
+  </header>
+
+  <div class="chat">
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>帮我用 gresentation 这个 skills 做一个介绍当前 AI 行业现状的展示 PPT</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag gate">判档 · 先定轻重，你可以改判</span><br>
+        这活我按<b>大活</b>处理——讲行业现状，事实说错了改起来比做起来更贵。第一个问题：这份主要讲给谁听？
+        <div class="opts">
+          <div class="opt"><b>内部同事</b>同行交流，熟悉 AI</div>
+          <div class="opt on"><b>客户或合作方</b>关心能否落地</div>
+          <div class="opt"><b>跨部门或管理层</b>懂业务不懂技术</div>
+          <div class="opt"><b>公开分享或培训</b>听众构成杂</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>客户或合作方</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">第 2 问 · 要他们做什么</span><br>
+        第二个问题：你希望他们听完之后做什么？
+        <div class="opts">
+          <div class="opt on"><b>认可我们的判断和专业度</b>不要当场拍板</div>
+          <div class="opt"><b>推动下一步合作</b>落到试点或预算</div>
+          <div class="opt"><b>帮他们做选型决策</b>答疑而非推销</div>
+          <div class="opt"><b>提供弹药给内部推动</b>他们要说服自己人</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>认可我们的判断和专业度</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">第 3 问 · 体量</span><br>
+        第三个问题：这场讲多久，大概多少页？
+        <div class="opts">
+          <div class="opt on"><b>二十分钟，12–15 页</b></div>
+          <div class="opt"><b>三十分钟，18–22 页</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>二十分钟左右，12–15 页</div>
+    </div>
+  </div>
+
+  <footer>
+    <span>先定档、再定受众和体量：后面所有取舍都以这三条为前提</span>
+    <span>1 / 2</span>
+  </footer>
+</div>
+
+<div class="page" id="p2">
+  <header>
+    <h1>一次真实的 Grill（下）：问到能落笔为止</h1>
+    <div class="sub">同一场对话续 · 共 7 问 + 1 次复述</div>
+  </header>
+
+  <div class="chat">
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">第 4 问 · 内容侧重（可多选）</span><br>
+        这十五页里，客户最想听哪几块？
+        <div class="opts">
+          <div class="opt"><b>模型能力进展</b>能做什么、做不好什么</div>
+          <div class="opt on"><b>应用与落地</b>哪些行业真跑出来了</div>
+          <div class="opt"><b>成本与算力</b>自建还是买 API</div>
+          <div class="opt"><b>厂商与生态</b>开源闭源的分化</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>应用与落地</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">第 5 问 · 受众现状</span><br>
+        这些客户目前在 AI 上走到哪一步了？
+        <div class="opts">
+          <div class="opt"><b>观望中</b>还没动手</div>
+          <div class="opt"><b>试过，没跑出效果</b>单点均未落地</div>
+          <div class="opt on"><b>小范围在用，想规模化</b></div>
+          <div class="opt"><b>构成不统一</b>需先给框架</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>小范围在用，想规模化</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">第 6–7 问 · 形态与品牌</span><br>
+        这份材料最后怎么用？品牌这边有什么约束？
+        <div class="opts">
+          <div class="opt on"><b>会上讲，讲完发 PDF</b></div>
+          <div class="opt"><b>直接发出去自己看</b></div>
+          <div class="opt"><b>以后还要反复改</b>要可编辑</div>
+          <div class="opt on"><b>有公司模板要用</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>会上讲，讲完发 PDF；有公司模板</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag gate">复述确认 · 你点头才往下写</span>
+        <div class="summary">
+          我的理解是：这份给<b>客户或合作方</b>看，用在<b>会上讲、讲完发 PDF</b>，你要的是他们<b>认可我们的判断和专业度</b>；核心记住一句：<b>规模化卡住的不是模型，是流程、评估和成本结构</b>。有出入的地方你说，我改完再写逐页稿。
+        </div>
+      </div>
+    </div>
+
+    <div class="msg me">
+      <div class="avatar">我</div>
+      <div class="bubble"><div class="who">我</div>没问题</div>
+    </div>
+
+    <div class="msg ai">
+      <div class="avatar">帮</div>
+      <div class="bubble">
+        <div class="who">G-resentation</div>
+        <span class="qtag">逐页稿 → 冻结 → 三页样稿</span><br>
+        14 页，P01–P14 编号连续、六字段齐全，已冻结并留版 <code style="font-size:12px">v01-outline</code>。先出三页给你看：封面、证据页、象限页。
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>七问 + 一次复述，用时约 8 分钟；后面省掉的返工都花在这一步</span>
+    <span>2 / 2</span>
+  </footer>
+</div>
+
+</body>
+</html>
