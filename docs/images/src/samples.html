@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>samples · same topic, two audiences</title>
+<style>
+  :root { --ink:#051C2C; --muted:#5B6B7C; --faint:#8A94A0; --accent:#2251FF; --warm:#C2410C; --rule:#D9DEE5; --panel:#F4F6F8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1280px; height:720px; overflow:hidden; background:#fff; }
+  body { font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); }
+  .wrap { width:1280px; height:720px; padding:32px 40px 22px; display:flex; flex-direction:column; }
+  header { display:flex; align-items:baseline; justify-content:space-between; }
+  h1 { font-size:32px; letter-spacing:-.01em; }
+  .sub { font-size:12px; color:var(--faint); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:16px; }
+  .col { display:flex; flex-direction:column; }
+  .cap { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+  .cap b { font-size:14px; }
+  .cap span { font-size:11.5px; color:var(--faint); }
+  .col.out .cap b { color:var(--accent); }
+  .col.in .cap b { color:var(--warm); }
+  img { width:100%; display:block; border:1px solid var(--rule); }
+  table { width:100%; border-collapse:collapse; margin-top:12px; }
+  td { font-size:12px; padding:6px 0; border-bottom:1px solid var(--rule); vertical-align:top; color:#3E4C5A; }
+  td.k { width:56px; color:var(--faint); white-space:nowrap; }
+  .strip { display:flex; gap:18px; margin-top:14px; align-items:center; }
+  .strip .item { display:flex; align-items:center; gap:10px; }
+  .strip img { width:150px; border:1px solid var(--rule); }
+  .strip .lab { font-size:11px; color:var(--muted); line-height:1.5; }
+  footer { margin-top:auto; border-top:1px solid var(--rule); padding-top:8px; font-size:11px; color:var(--faint); display:flex; justify-content:space-between; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">同一主题，两种受众</h1>
+    <div class="sub" id="sub">同一份行业事实，讲给客户和讲给同事，结构完全不同</div>
+  </header>
+
+  <div class="cols">
+    <div class="col out">
+      <div class="cap"><b id="o-title">对外 · 客户提案</b><span id="o-meta">14 页 · 咨询版式 · 白底</span></div>
+      <img src="../deck/p01.png" alt="">
+      <table>
+        <tr><td class="k" id="k1">要他们</td><td id="v1">认可我们的判断，不需要当场拍板</td></tr>
+        <tr><td class="k" id="k2">靠什么</td><td id="v2">每条结论都带出处，判断与统计分开标</td></tr>
+        <tr><td class="k" id="k3">语气</td><td id="v3">克制、留白，先给证据再给建议</td></tr>
+        <tr><td class="k" id="k4">收尾</td><td id="v4">"现在不适合做的三件事"</td></tr>
+      </table>
+    </div>
+
+    <div class="col in">
+      <div class="cap"><b id="i-title">对内 · 全员宣讲</b><span id="i-meta">8 页 · 深色大字报 · 橙调</span></div>
+      <img src="../samples/internal.png" alt="">
+      <table>
+        <tr><td class="k" id="k1b">要他们</td><td id="v1b">报名参与 90 天试点</td></tr>
+        <tr><td class="k" id="k2b">靠什么</td><td id="v2b">只留三条硬事实，其余全换成"关我什么事"</td></tr>
+        <tr><td class="k" id="k3b">语气</td><td id="v3b">直接、动员，句子短，音量高</td></tr>
+        <tr><td class="k" id="k4b">收尾</td><td id="v4b">"三个人，一个场景，九十天"</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="item"><img src="../samples/weekly.png" alt=""><div class="lab" id="s1">周会同步<br>5 页 · 深色极简</div></div>
+    <div class="item"><img src="../samples/training.png" alt=""><div class="lab" id="s2">内部培训<br>6 页 · 4:3 米色教学</div></div>
+    <div class="lab" id="s3" style="margin-left:8px; font-size:11.5px; color:var(--faint);">同一套流程，换场合就换版式：<br>小事填表 5 页，培训 4:3 便打印。</div>
+  </div>
+
+  <footer>
+    <span id="foot-l">三份样例与各自的 brief、逐页稿都在 samples/ 下，可直接打开。</span>
+    <span>github.com/QinyuTan/G-resentation</span>
+  </footer>
+</div>
+
+<script>
+const L = {
+  zh: {
+    title:"同一主题，两种受众", sub:"同一份行业事实，讲给客户和讲给同事，结构完全不同",
+    ot:"对外 · 客户提案", om:"14 页 · 咨询版式 · 白底",
+    it:"对内 · 全员宣讲", im:"8 页 · 深色大字报 · 橙调",
+    k1:"要他们", v1:"认可我们的判断，不需要当场拍板",
+    v1b:"报名参与 90 天试点，或至少不再说“那是技术部门的事”", v2b:"只留三条硬事实，其余换成“关我什么事”", v3b:"直接、动员，句子短", v4b:"“三个人，一个场景，九十天”",
+    k2:"靠什么", v2:"每条结论都带出处，判断与统计分开标",
+    k3:"语气", v3:"克制、留白，先给证据再给建议",
+    k4:"收尾", v4:"“现在不适合做的三件事”",
+    s1:"周会同步<br>5 页 · 深色极简", s2:"内部培训<br>6 页 · 4:3 米色教学",
+    s3:"同一套流程，换场合就换版式：<br>小事填表 5 页，培训 4:3 便打印。",
+    foot:"三份样例与各自的 brief、逐页稿都在 samples/ 下，可直接打开。"
+  },
+  en: {
+    title:"One topic, two audiences", sub:"Same industry facts — a client deck and an all-hands deck look nothing alike",
+    ot:"External · client proposal", om:"14 slides · consulting layout · white",
+    it:"Internal · all-hands", im:"8 slides · dark poster · orange",
+    k1:"The ask", v1:"Respect our judgement; no decision needed today",
+    v1b:"Sign up for the 90-day pilot, or at least stop calling it “a tech team thing”", v2b:"Three hard facts only; everything else answers “why me”", v3b:"Direct, mobilising, short sentences", v4b:"“Three people, one scenario, ninety days”",
+    k2:"Proof", v2:"Every claim carries a source; judgement and data are labelled apart",
+    k3:"Tone", v3:"Restrained, spacious, evidence before advice",
+    k4:"Close", v4:"“Three things you shouldn't do yet”",
+    s1:"Weekly sync<br>5 slides · dark minimal", s2:"Internal training<br>6 slides · 4:3, warm paper",
+    s3:"Same pipeline, different occasion, different canvas:<br>5 slides for a small job, 4:3 when it gets printed.",
+    foot:"All three samples ship with their brief and page outline under samples/."
+  }
+};
+const lang = (new URLSearchParams(location.search).get("lang") === "en") ? "en" : "zh";
+const t = L[lang];
+const map = {
+  title:"title", sub:"sub", ot:"o-title", om:"o-meta", it:"i-title", im:"i-meta",
+  v1:"v1", v2:"v2", v3:"v3", v4:"v4", v1b:"v1b", v2b:"v2b", v3b:"v3b", v4b:"v4b",
+  k1:"k1", k2:"k2", k3:"k3", k4:"k4", k1b:"k1b", k2b:"k2b", k3b:"k3b", k4b:"k4b",
+  foot:"foot-l"
+};
+for (const [key, id] of Object.entries(map)) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = t[key];
+}
+["k1","k2","k3","k4"].forEach((k,i)=>document.getElementById(k+"b").textContent = t[k]);
+document.getElementById("s1").innerHTML = t.s1;
+document.getElementById("s2").innerHTML = t.s2;
+document.getElementById("s3").innerHTML = t.s3;
+document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+</script>
+</body>
+</html>

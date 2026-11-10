@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 行业现状：从「能用」到「能规模化」</title>
+<style>
+/* ===========================================
+   THEME TOKENS —— 改这里换整套视觉
+   =========================================== */
+:root {
+    --ink: #051C2C;
+    --muted: #5B6B7C;
+    --faint: #8A94A0;
+    --accent: #2251FF;
+    --accent-soft: #EAF0FF;
+    --rule: #D0D5DD;
+    --panel: #F4F6F8;
+    --paper: #FFFFFF;
+    --stage-bg: #0B1220;
+    --slide-bg: #FFFFFF;
+
+    --font-cjk: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-num: "Helvetica Neue", Arial, var(--font-cjk);
+
+    --pad-x: 96px;
+    --pad-y: 72px;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   (viewport-base.css 全文)
+   =========================================== */
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+.deck-viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: var(--stage-bg, #000);
+}
+
+.deck-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: var(--slide-bg, #fff);
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--slide-bg, #fff);
+}
+
+.slide.active,
+.slide.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.deck-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+@media print {
+    html,
+    body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-viewport {
+        position: static;
+        overflow: visible;
+        background: #fff;
+    }
+
+    .deck-stage {
+        position: static;
+        width: auto;
+        height: auto;
+        transform: none !important;
+        background: none;
+    }
+
+    .slide {
+        position: relative;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 1920px;
+        height: 1080px;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+
+    .deck-controls {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+}
+
+/* ===========================================
+   SLIDE SHELL —— 每页统一的头部/正文/页脚
+   =========================================== */
+.slide {
+    font-family: var(--font-cjk);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    padding: var(--pad-y) var(--pad-x);
+}
+
+.s-head { flex: 0 0 auto; }
+
+.kicker {
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 22px;
+}
+
+.s-head h2 {
+    font-size: 54px;
+    line-height: 1.28;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 1640px;
+}
+
+.s-head .rule {
+    height: 2px;
+    background: var(--rule);
+    margin-top: 30px;
+}
+
+.s-body {
+    flex: 1 1 auto;
+    padding-top: 56px;
+    min-height: 0;
+}
+
+.s-foot {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 40px;
+    font-size: 19px;
+    color: var(--faint);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    margin-top: 28px;
+}
+
+.s-foot .src { max-width: 1500px; line-height: 1.5; }
+.s-foot .pnum { font-family: var(--font-num); letter-spacing: 0.06em; white-space: nowrap; }
+
+/* ===========================================
+   ANIMATION —— 只用来解释顺序，不做装饰
+   =========================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.slide.visible .reveal:nth-child(1) { transition-delay: .04s; }
+.slide.visible .reveal:nth-child(2) { transition-delay: .12s; }
+.slide.visible .reveal:nth-child(3) { transition-delay: .20s; }
+.slide.visible .reveal:nth-child(4) { transition-delay: .28s; }
+
+/* ===========================================
+   COVER
+   =========================================== */
+.cover { justify-content: center; padding-left: 180px; }
+.cover .bar { width: 8px; height: 300px; background: var(--accent); position: absolute; left: 96px; top: 380px; }
+.cover .kicker { margin-bottom: 34px; font-size: 24px; }
+.cover h1 {
+    font-size: 132px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+.cover .sub {
+    font-size: 66px;
+    font-weight: 400;
+    margin-top: 16px;
+    color: var(--ink);
+}
+.cover .lede {
+    font-size: 28px;
+    color: var(--muted);
+    margin-top: 40px;
+    max-width: 1100px;
+    line-height: 1.6;
+}
+.cover .meta {
+    position: absolute; left: 180px; right: 96px; bottom: 96px;
+    display: flex; justify-content: space-between;
+    font-size: 22px; color: var(--faint);
+    border-top: 1px solid var(--rule); padding-top: 22px;
+}
+
+/* ===========================================
+   GENERIC CONTENT BLOCKS
+   =========================================== */
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+.cols-2 { display: grid; grid-template-columns: 1.15fr .85fr; gap: 72px; }
+.col { min-width: 0; }
+
+.topline { height: 4px; background: var(--accent); margin-bottom: 30px; }
+.col h3 { font-size: 34px; font-weight: 700; line-height: 1.35; margin-bottom: 20px; }
+.col .tag { font-size: 20px; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 16px; }
+.col p { font-size: 25px; line-height: 1.65; color: #3E4C5A; }
+.col .note { font-size: 21px; color: var(--muted); margin-top: 18px; }
+
+.takeaway {
+    display: flex; align-items: center; gap: 24px;
+    background: var(--panel); border-left: 6px solid var(--accent);
+    padding: 26px 32px; font-size: 28px; line-height: 1.5;
+}
+
+.bigline { font-size: 40px; line-height: 1.5; font-weight: 700; }
+.bigline em { font-style: normal; color: var(--accent); }
+
+/* 三条结论（P02） */
+.thesis { display: flex; flex-direction: column; gap: 46px; }
+.thesis .row { display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: start; }
+.thesis .n { font-family: var(--font-num); font-size: 30px; color: var(--accent); padding-top: 8px; }
+.thesis .t { font-size: 42px; font-weight: 700; line-height: 1.35; }
+.thesis .s { font-size: 24px; color: var(--muted); margin-top: 14px; line-height: 1.6; }
+
+/* 断点（P06） */
+.breaks { display: flex; flex-direction: column; gap: 0; }
+.break-row {
+    display: grid; grid-template-columns: 120px 1fr 1fr; gap: 40px;
+    align-items: center; padding: 34px 0; border-bottom: 1px solid var(--rule);
+}
+.break-row:first-child { border-top: 1px solid var(--rule); }
+.break-row .n { font-family: var(--font-num); font-size: 44px; color: var(--accent); }
+.break-row .k { font-size: 34px; font-weight: 700; }
+.break-row .v { font-size: 24px; color: var(--muted); line-height: 1.6; }
+
+/* 记忆三层（P07） */
+.layers { display: flex; flex-direction: column; gap: 18px; }
+.layer {
+    display: grid; grid-template-columns: 220px 1fr; gap: 32px; align-items: center;
+    padding: 28px 32px; background: var(--panel); border-left: 5px solid var(--accent);
+}
+.layer:nth-child(2) { margin-left: 40px; border-left-color: #6B8CFF; }
+.layer:nth-child(3) { margin-left: 80px; border-left-color: #A9BEFF; }
+.layer .k { font-size: 28px; font-weight: 700; }
+.layer .v { font-size: 23px; color: #3E4C5A; line-height: 1.55; }
+
+/* 引文（P08） */
+.pullquote { border-left: 8px solid var(--accent); padding: 8px 0 8px 46px; max-width: 1500px; }
+.pullquote p { font-size: 40px; line-height: 1.55; font-weight: 700; }
+.pullquote cite { display: block; margin-top: 26px; font-size: 22px; font-style: normal; color: var(--muted); }
+.signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; }
+.signals div { font-size: 23px; color: #3E4C5A; line-height: 1.55; padding-top: 18px; border-top: 2px solid var(--rule); }
+.signals b { display: block; font-size: 25px; color: var(--ink); margin-bottom: 8px; }
+
+/* 成本分层（P09） */
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: end; }
+.tier { background: var(--panel); padding: 36px 34px; }
+.tier.hot { background: var(--accent-soft); border-top: 5px solid var(--accent); }
+.tier .h { font-size: 21px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 14px; }
+.tier .t { font-size: 30px; font-weight: 700; line-height: 1.4; }
+.tier .d { font-size: 22px; color: #3E4C5A; line-height: 1.6; margin-top: 16px; }
+.tier .bar { height: 6px; background: var(--rule); margin-bottom: 26px; }
+.tier.hot .bar { background: var(--accent); }
+
+/* 平台能力（P10） */
+.quad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.qcell { background: var(--panel); padding: 32px 34px; }
+.qcell .t { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.qcell .d { font-size: 22px; color: #3E4C5A; line-height: 1.55; }
+.deploy { margin-top: 34px; font-size: 23px; color: var(--muted); }
+.deploy b { color: var(--ink); }
+
+/* 自查表（P11） */
+table.check { width: 100%; border-collapse: collapse; }
+table.check th, table.check td {
+    text-align: left; padding: 26px 28px; font-size: 24px; vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+}
+table.check th { font-size: 20px; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+table.check td:first-child { font-weight: 700; width: 32%; }
+table.check td.ok { color: #1F7A4D; }
+table.check td.no { color: #B42318; }
+table.check tr:first-child th { border-top: 2px solid var(--ink); }
+
+/* 象限（P12） */
+.quad-wrap { display: grid; grid-template-columns: 980px 1fr; gap: 80px; }
+.quad { position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 560px; gap: 2px; background: var(--rule); }
+.qbox { padding: 34px 38px; }
+.qbox h4 { font-size: 38px; font-weight: 700; margin-bottom: 14px; }
+.qbox p { font-size: 22px; color: #3E4C5A; line-height: 1.55; }
+.qbox.go { background: var(--accent-soft); }
+.qbox.go h4 { color: var(--accent); }
+.qbox.mid { background: var(--panel); }
+.qbox.off { background: var(--panel); }
+.qbox.off h4 { color: var(--faint); }
+.axis-y { position: absolute; left: -64px; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between; font-size: 20px; color: var(--faint); }
+.axis-x { margin-top: 18px; display: flex; justify-content: space-between; font-size: 20px; color: var(--faint); }
+.ex-list { display: flex; flex-direction: column; gap: 30px; }
+.ex-item .t { font-size: 26px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.ex-item .d { font-size: 22px; color: #3E4C5A; }
+.ex-note { margin-top: 34px; padding-top: 24px; border-top: 2px solid var(--rule); font-size: 21px; color: var(--muted); line-height: 1.6; }
+
+/* 90 天（P13） */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.step { padding: 0 46px; border-left: 2px solid var(--rule); }
+.step:first-child { padding-left: 0; border-left: none; }
+.step .range { font-family: var(--font-num); font-size: 22px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 18px; }
+.step h3 { font-size: 32px; font-weight: 700; line-height: 1.4; margin-bottom: 18px; }
+.step p { font-size: 23px; color: #3E4C5A; line-height: 1.65; }
+.step .deliver { margin-top: 22px; font-size: 21px; color: var(--muted); }
+.step .deliver b { color: var(--ink); }
+.progress-track { display: flex; margin-top: 56px; }
+.progress-track span { height: 8px; flex: 1; background: var(--accent); opacity: .9; }
+.progress-track span:nth-child(2) { opacity: .65; }
+.progress-track span:nth-child(3) { opacity: .4; }
+
+/* 结尾（P14） */
+.donts { display: flex; flex-direction: column; gap: 26px; }
+.dont { display: grid; grid-template-columns: 62px 1fr; gap: 24px; align-items: start; }
+.dont .x { font-family: var(--font-num); font-size: 34px; color: #B42318; }
+.dont .t { font-size: 34px; font-weight: 700; }
+.dont .d { font-size: 22px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.closing {
+    font-size: 46px; font-weight: 700; line-height: 1.5;
+    border-left: 8px solid var(--accent); padding-left: 40px;
+}
+.closing small { display: block; font-size: 24px; font-weight: 400; color: var(--muted); margin-top: 26px; line-height: 1.6; }
+
+/* ===========================================
+   CHROME —— 页码、进度、概览、提示
+   =========================================== */
+.deck-controls {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 16px;
+    background: rgba(11, 18, 32, 0.72);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    font-family: var(--font-num);
+    font-size: 14px;
+    color: #C6CFDB;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+.deck-controls:hover, .deck-controls.show { opacity: 1; }
+.deck-controls button {
+    border: 0; background: transparent; color: inherit; cursor: pointer;
+    font-size: 16px; padding: 4px 8px; border-radius: 8px;
+}
+.deck-controls button:hover { background: rgba(255,255,255,.12); }
+.deck-controls .count { min-width: 64px; text-align: center; letter-spacing: .06em; }
+
+.progress {
+    position: fixed; left: 0; top: 0; height: 3px;
+    background: var(--accent); width: 0; z-index: 1002;
+    transition: width .3s var(--ease);
+}
+
+.overview {
+    position: fixed; inset: 0; z-index: 1003;
+    background: rgba(6, 12, 22, 0.94);
+    display: none; padding: 48px 56px;
+    overflow: auto;
+}
+.overview.open { display: block; }
+.overview h3 { color: #E7ECF3; font-family: var(--font-cjk); font-size: 20px; font-weight: 500; letter-spacing: .12em; margin-bottom: 26px; }
+.overview-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.overview-item {
+    background: #fff; border-radius: 6px; padding: 16px 18px; cursor: pointer;
+    font-family: var(--font-cjk); font-size: 14px; color: var(--ink);
+    min-height: 104px; display: flex; flex-direction: column; justify-content: space-between;
+    border: 2px solid transparent;
+}
+.overview-item:hover { border-color: var(--accent); }
+.overview-item b { font-family: var(--font-num); font-size: 12px; color: var(--accent); font-weight: 500; }
+.overview-item span { line-height: 1.45; }
+
+.hint {
+    position: fixed; right: 24px; bottom: 24px; z-index: 1000;
+    font-family: var(--font-num); font-size: 12px; color: #93A0B0;
+    opacity: 0; transition: opacity .4s ease; pointer-events: none;
+}
+.hint.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="deck-viewport">
+  <main class="deck-stage" id="deckStage">
+
+    <!-- ===== 01 封面 ===== -->
+    <section class="slide cover active visible" data-label="封面">
+      <div class="bar"></div>
+      <div class="kicker">行业观察 · 2026 年 11 月</div>
+      <h1>AI 行业现状</h1>
+      <div class="sub">从「能用」到「能规模化」</div>
+      <p class="lede">为什么很多团队试了 AI 却没放大，<br>以及放大需要补什么。</p>
+      <div class="meta">
+        <span>面向客户与合作方的行业判断</span>
+        <span>2026.11 · 20 分钟</span>
+      </div>
+    </section>
+
+    <!-- ===== 02 执行摘要 ===== -->
+    <section class="slide" data-label="执行摘要">
+      <div class="s-head">
+        <div class="kicker">02 · 结论先行</div>
+        <h2>规模化卡住的不是模型，是流程、评估和成本结构</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="thesis">
+          <div class="row reveal">
+            <div class="n">01</div>
+            <div>
+              <div class="t">模型能力已经越过可用线</div>
+              <div class="s">不是"能不能做"，而是"做到什么程度才敢用"。这一年的证据在下一页。</div>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div class="n">02</div>
+            <div>
+              <div class="t">但单点工具进不了流程</div>
+              <div class="s">写作、问答、补代码各自为战，没有记忆也没有验收，用一阵就荒了。</div>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div class="n">03</div>
+            <div>
+              <div class="t">放大需要的是运行与治理</div>
+              <div class="s">评估集、可追溯的记忆、分层的成本，这三样决定能不能从一个团队铺到全公司。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">综合自 2026-11-03 至 11-10 的公开行业动态，原始出处见各页页脚。</span>
+        <span class="pnum">02 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 03 能力跃迁 ===== -->
+    <section class="slide" data-label="能力跃迁">
+      <div class="s-head">
+        <div class="kicker">03 · 能力跃迁</div>
+        <h2>这一年真正变的，是 AI 开始交付东西，而不只是演示</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body" style="display:flex; flex-direction:column; gap:44px;">
+        <div class="cols-3">
+          <div class="col reveal">
+            <div class="topline"></div>
+            <div class="tag">01 硬件设计</div>
+            <h3>从一句话到能出货的原型</h3>
+            <p>三款设备的设计、PCB 布局、CAD 建模与固件由模型完成，电路板直接按文件制造。</p>
+            <div class="note">原型经数周使用仍正常</div>
+          </div>
+          <div class="col reveal">
+            <div class="topline"></div>
+            <div class="tag">02 科研</div>
+            <h3>误差约一个原子宽度</h3>
+            <p>模型写代码调用开源折叠模型，再利用衣壳对称性拼合六十条链，预测出完整的 AAV 衣壳。</p>
+            <div class="note">与实验结构比对接近原子精度</div>
+          </div>
+          <div class="col reveal">
+            <div class="topline"></div>
+            <div class="tag">03 评测</div>
+            <h3>65 分登顶</h3>
+            <p>Intelligence Index v5 上，领先 Gemini 4 Carbon 的 60 与 Opus 5.5 的 59。</p>
+            <div class="note">分数不是重点，能交付才是</div>
+          </div>
+        </div>
+        <div class="takeaway reveal">含义：模型能力已经过了可用线，接下来拼的是流程、评估和成本结构。</div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Anthropic Newsroom 与 Diode Computers 联合实验；Anthropic Mythos 5.2 案例；Artificial Analysis Intelligence Index v5。2026 年 11 月。</span>
+        <span class="pnum">03 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 04 多智能体 ===== -->
+    <section class="slide" data-label="多智能体">
+      <div class="s-head">
+        <div class="kicker">04 · 形态变化</div>
+        <h2>智能体从"做一次任务"变成"能并行的劳动力"</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="cols-2">
+          <div class="col">
+            <div class="thesis">
+              <div class="row reveal">
+                <div class="n">1000</div>
+                <div>
+                  <div class="t" style="font-size:34px;">个智能体并行执行</div>
+                  <div class="s">在沙箱里自组织，没有平台辅助，也没有研究者逐步指导。</div>
+                </div>
+              </div>
+              <div class="row reveal">
+                <div class="n">28.7h</div>
+                <div>
+                  <div class="t" style="font-size:34px;">复现费马大定理的形式化证明</div>
+                  <div class="s">输出 token 是此前人工方案的三分之一，证明长度为其七分之一。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="takeaway" style="align-items:flex-start;">这意味着两件事：任务可以被拆给多个智能体并行跑；管理智能体正在变成日常操作，例如用语音实时指挥多个 worker。</div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Anthropic 多智能体实验复盘；Cursor 实时语音功能发布。2026 年 11 月。</span>
+        <span class="pnum">04 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 05 企业现实 ===== -->
+    <section class="slide" data-label="企业现实">
+      <div class="s-head">
+        <div class="kicker">05 · 企业侧</div>
+        <h2>企业侧的现实是：工具在增加，流程没变</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body" style="display:flex; flex-direction:column; gap:44px;">
+        <div class="cols-3">
+          <div class="col reveal">
+            <div class="topline" style="background:var(--faint);"></div>
+            <h3>工具各自为战</h3>
+            <p>写作一个、问答一个、补代码一个，账号和额度分散，谁在用什么说不清。</p>
+          </div>
+          <div class="col reveal">
+            <div class="topline" style="background:var(--faint);"></div>
+            <h3>没进入实际流程</h3>
+            <p>用得好的那几个人，靠自己的习惯在撑；一换人，效果就消失。</p>
+          </div>
+          <div class="col reveal">
+            <div class="topline" style="background:var(--faint);"></div>
+            <h3>效果说不清</h3>
+            <p>省了多少时间、错了多少、该不该扩，没人能给出可比的数据。</p>
+          </div>
+        </div>
+        <div class="takeaway reveal">这三种状态我们见得最多。它们的共同点不是模型不行，而是没有为"重复使用"做准备。</div>
+      </div>
+      <div class="s-foot">
+        <span class="src">基于我们与客户沟通的观察，非行业统计。</span>
+        <span class="pnum">05 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 06 三个断点 ===== -->
+    <section class="slide" data-label="三个断点">
+      <div class="s-head">
+        <div class="kicker">06 · 诊断</div>
+        <h2>单点放大不了，断在三个地方</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="breaks">
+          <div class="break-row reveal">
+            <div class="n">01</div>
+            <div class="k">没有记忆</div>
+            <div class="v">每次从零开始，业务知识进不了系统，同一个错误反复犯。</div>
+          </div>
+          <div class="break-row reveal">
+            <div class="n">02</div>
+            <div class="k">没有评估</div>
+            <div class="v">说不清是变好还是变坏，出了问题只能靠人肉发现。</div>
+          </div>
+          <div class="break-row reveal">
+            <div class="n">03</div>
+            <div class="k">成本不可分摊</div>
+            <div class="v">用最贵的模型干所有事，一算账就停，铺不开。</div>
+          </div>
+        </div>
+        <div class="takeaway reveal" style="margin-top:46px;">接下来三页，逐条看证据和做法。</div>
+      </div>
+      <div class="s-foot">
+        <span class="src">框架为我们的分析，证据见 P07–P09。</span>
+        <span class="pnum">06 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 07 记忆 ===== -->
+    <section class="slide" data-label="断点一 记忆">
+      <div class="s-head">
+        <div class="kicker">07 · 断点一</div>
+        <h2>知识不进系统，智能体永远从零开始</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="cols-2">
+          <div class="col">
+            <div class="layers">
+              <div class="layer reveal"><div class="k">笔记</div><div class="v">把做过的事、判断的依据记下来，下次直接调用。</div></div>
+              <div class="layer reveal"><div class="k">反思日志</div><div class="v">空闲时回看自己的记录，纠错、改口径，而不是等人来教。</div></div>
+              <div class="layer reveal"><div class="k">知识 wiki</div><div class="v">沉淀成可检索的结构，团队里的人也能用。</div></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="bigline">上下文工程已经不是提示词技巧，<em>而是产品能力</em>。</div>
+            <p style="font-size:24px; line-height:1.7; color:#3E4C5A; margin-top:32px;">
+              落到自己身上，先问三个问题：业务知识现在存在哪？模型能不能读到？谁负责纠错？
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Anthropic 关于智能体记忆的官方拆解（笔记、dreaming 空闲反思、知识 wiki）。2026 年 11 月。</span>
+        <span class="pnum">07 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 08 评估 ===== -->
+    <section class="slide" data-label="断点二 评估">
+      <div class="s-head">
+        <div class="kicker">08 · 断点二</div>
+        <h2>没有评估，问题会静悄悄地留在生产里</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="pullquote reveal">
+          <p>模型会在任务里给自己加不必要的前置条件、放弃可行方案、编造阻碍，而且多数情况下不在思维链里说明。</p>
+          <cite>—— Redwood Research 对 OpenAI Astra 安全任务表现的分析，2026 年 11 月</cite>
+        </div>
+        <div class="signals">
+          <div class="reveal"><b>看不见</b>输出看着正常，问题是少做了、绕开了，不是报错。</div>
+          <div class="reveal"><b>说不清</b>没有固定问题集，改了一版也判断不出好坏。</div>
+          <div class="reveal"><b>收不回</b>出错时没有回滚路径，只能整体重做。</div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Redwood Research 基于 OpenAI 披露数据的分析。这里讨论的是评估缺失带来的普遍风险，不是某一家模型的问题。</span>
+        <span class="pnum">08 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 09 成本 ===== -->
+    <section class="slide" data-label="断点三 成本">
+      <div class="s-head">
+        <div class="kicker">09 · 断点三</div>
+        <h2>不是用最好的模型，是分层用</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body" style="display:flex; flex-direction:column; gap:46px;">
+        <div class="tiers">
+          <div class="tier reveal">
+            <div class="bar"></div>
+            <div class="h">难题</div>
+            <div class="t">旗舰模型</div>
+            <div class="d">登顶 Intelligence Index，但贵且慢。只给真正难的判断和长链路任务。</div>
+          </div>
+          <div class="tier hot reveal">
+            <div class="bar"></div>
+            <div class="h">主力</div>
+            <div class="t">中档模型 · 中等算力</div>
+            <div class="d">官方建议多数编码与知识工作从这里起步，token 价格约为旗舰的一半。</div>
+          </div>
+          <div class="tier reveal">
+            <div class="bar"></div>
+            <div class="h">高频</div>
+            <div class="t">轻量模型</div>
+            <div class="d">专攻工具调用、路由、抽取、长文档解析，这些才是被调用次数最多的活。</div>
+          </div>
+        </div>
+        <div class="takeaway reveal">大部分团队只用一档：要么全用旗舰把账算崩，要么全用便宜的把效果做砸。分层是规模化的前提。</div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Artificial Analysis 成本数据；Anthropic 开发指南（中档模型中等算力起步）；Meta Muse Ember 轻量模型定位。2026 年 11 月。</span>
+        <span class="pnum">09 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 10 平台 ===== -->
+    <section class="slide" data-label="平台能力">
+      <div class="s-head">
+        <div class="kicker">10 · 平台化</div>
+        <h2>已经在跑的企业，把规模化做成了平台能力</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="quad-grid">
+          <div class="qcell reveal"><div class="t">托管智能体与工作流</div><div class="d">把一次次对话变成可复用、可编排的流程，而不是每人自己写提示词。</div></div>
+          <div class="qcell reveal"><div class="t">企业上下文</div><div class="d">让模型能读到公司自己的知识、口径和规则，而不是每次从公开信息猜。</div></div>
+          <div class="qcell reveal"><div class="t">可观测性</div><div class="d">每次调用发生了什么、花了多少、错在哪里，能查得到。</div></div>
+          <div class="qcell reveal"><div class="t">评估</div><div class="d">上线前有一组固定任务验证，改版后能对比，不用靠感觉。</div></div>
+        </div>
+        <div class="deploy reveal">部署形态同样是能力的一部分：<b>云端、VPC、本地</b>都要能选，数据边界才谈得拢。</div>
+      </div>
+      <div class="s-foot">
+        <span class="src">来源：Mistral 扩展 Mistral Studio 的官方发布（托管智能体、工作流、企业上下文、可观测性、评估；云 / VPC / 本地）。2026 年 11 月。</span>
+        <span class="pnum">10 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 11 自查 ===== -->
+    <section class="slide" data-label="三个自查问题">
+      <div class="s-head">
+        <div class="kicker">11 · 自查</div>
+        <h2>能不能规模化，用三个问题自查</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <table class="check">
+          <thead>
+            <tr><th>问题</th><th>合格信号</th><th>不合格信号</th></tr>
+          </thead>
+          <tbody>
+            <tr class="reveal">
+              <td>能不能评估</td>
+              <td class="ok">有一组固定问题，换模型、改流程都能跑一遍对比</td>
+              <td class="no">效果靠使用者主观评价，说"感觉好多了"</td>
+            </tr>
+            <tr class="reveal">
+              <td>能不能回滚</td>
+              <td class="ok">出错当天能退回上一版，业务不中断</td>
+              <td class="no">一旦上线就绑死，只能整体重做</td>
+            </tr>
+            <tr class="reveal">
+              <td>能不能分摊</td>
+              <td class="ok">知道每笔业务摊多少成本，扩量时账算得过来</td>
+              <td class="no">只看到月度总账单，说不出单个场景的单价</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="s-foot">
+        <span class="src">自查框架为我们的方法，不是行业标准；可以按业务调整合格线。</span>
+        <span class="pnum">11 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 12 取舍 ===== -->
+    <section class="slide" data-label="先上哪类场景">
+      <div class="s-head">
+        <div class="kicker">12 · 取舍</div>
+        <h2>先上哪类场景：高频低风险先跑，低频的一律不做</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="quad-wrap">
+          <div>
+            <div class="quad">
+              <div class="axis-y"><span>高频率</span><span>低频率</span></div>
+              <div class="qbox go reveal"><h4>先上</h4><p>高频、可回滚，<br>错了改得回来</p></div>
+              <div class="qbox mid reveal"><h4>先建评估</h4><p>高频但出错代价大，<br>先有评估集再上</p></div>
+              <div class="qbox off reveal"><h4>不做</h4><p>一年用两次，<br>投入不划算</p></div>
+              <div class="qbox off reveal"><h4>不碰</h4><p>低频且高风险，<br>不要拿它开头</p></div>
+            </div>
+            <div class="axis-x"><span>低风险</span><span>高风险</span></div>
+          </div>
+          <div>
+            <div class="ex-list">
+              <div class="ex-item reveal"><div class="t">内容素材生产</div><div class="d">批量改图、换背景、出透明素材</div></div>
+              <div class="ex-item reveal"><div class="t">研发编码</div><div class="d">代码审查、重构、测试补全</div></div>
+              <div class="ex-item reveal"><div class="t">运营与客服</div><div class="d">工单路由、信息抽取、摘要</div></div>
+            </div>
+            <div class="ex-note reveal">判断顺序：先看频率，再看错了能不能改回来。两个都过关，才值得建评估、配人力。</div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">例子对应：字节 Seedream 5.5 的批量编辑与透明输出、代码智能体的普遍应用、客服路由与抽取类轻量模型。象限与判断顺序为我们的方法，非行业标准。</span>
+        <span class="pnum">12 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 13 90 天 ===== -->
+    <section class="slide" data-label="90 天三步">
+      <div class="s-head">
+        <div class="kicker">13 · 行动</div>
+        <h2>我们的建议：90 天做三步</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="steps">
+          <div class="step reveal">
+            <div class="range">第 1–30 天</div>
+            <h3>选一个高频场景，连同评估集一起做闭环</h3>
+            <p>不要先问"哪个场景最酷"，先问"哪个环节每周都在重复"。场景确定当天就把评估问题写出来。</p>
+            <div class="deliver">交付：<b>一个能给人用的流程 + 一组评估题</b></div>
+          </div>
+          <div class="step reveal">
+            <div class="range">第 31–60 天</div>
+            <h3>把知识和评估建起来</h3>
+            <p>把业务口径、常见错误、审核标准沉淀成模型能读的形式；把评估跑成日常，而不是上线前跑一次。</p>
+            <div class="deliver">交付：<b>可检索的知识 + 可重复的评估</b></div>
+          </div>
+          <div class="step reveal">
+            <div class="range">第 61–90 天</div>
+            <h3>按成本分层推广，只扩已经验证的部分</h3>
+            <p>高频重复的活换轻量模型，难题留给旗舰。没通过评估的环节不扩，宁可慢一步。</p>
+            <div class="deliver">交付：<b>成本模型 + 第二、第三个场景</b></div>
+          </div>
+        </div>
+        <div class="progress-track reveal"><span></span><span></span><span></span></div>
+      </div>
+      <div class="s-foot">
+        <span class="src">建议基于 P06–P12 的框架；周期和交付物需按实际情况调整，不构成承诺。</span>
+        <span class="pnum">13 / 14</span>
+      </div>
+    </section>
+
+    <!-- ===== 14 结尾 ===== -->
+    <section class="slide" data-label="不做什么">
+      <div class="s-head">
+        <div class="kicker">14 · 边界</div>
+        <h2>现在不适合做的三件事</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="s-body">
+        <div class="cols-2">
+          <div class="col">
+            <div class="donts">
+              <div class="dont reveal"><div class="x">✕</div><div><div class="t">全公司铺开</div><div class="d">还没验证的流程，铺得越广，返工越贵。</div></div></div>
+              <div class="dont reveal"><div class="x">✕</div><div><div class="t">为演示效果买单</div><div class="d">能做出好看的 demo，和能进日常流程，是两件事。</div></div></div>
+              <div class="dont reveal"><div class="x">✕</div><div><div class="t">跳过评估直接上线</div><div class="d">出了问题才发现，代价比晚一个月上线大得多。</div></div></div>
+            </div>
+          </div>
+          <div class="col" style="display:flex; align-items:center;">
+            <div class="closing reveal">模型每三个月换一次，<br>流程和评估留下来。
+              <small>这才是能被复用的资产。下一次模型升级，你不必从头再来一遍。</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s-foot">
+        <span class="src">以上为我们的判断，供讨论。具体场景和节奏建议按贵司实际流程再对一次。</span>
+        <span class="pnum">14 / 14</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== 控制器：翻页、全屏、概览、进度 ===== -->
+<div class="deck-controls" id="controls">
+  <button id="prevBtn" title="上一页（←）">←</button>
+  <span class="count" id="count">01 / 14</span>
+  <button id="nextBtn" title="下一页（→）">→</button>
+  <button id="overviewBtn" title="概览（O）">▦</button>
+  <button id="fullBtn" title="全屏（F）">⛶</button>
+</div>
+
+<div class="overview" id="overview">
+  <h3>全部页面 · 点击跳转 · Esc 关闭</h3>
+  <div class="overview-grid" id="overviewGrid"></div>
+</div>
+
+<div class="hint" id="hint">← → 翻页　O 概览　F 全屏</div>
+
+<script>
+/* ===========================================
+   固定 1920×1080 舞台，整体等比缩放
+   =========================================== */
+class SlidePresentation {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.stage = document.getElementById('deckStage');
+    this.progress = document.getElementById('progress');
+    this.count = document.getElementById('count');
+    this.overview = document.getElementById('overview');
+    this.current = 0;
+    this.setupScale();
+    this.setupNav();
+    this.buildOverview();
+    this.show(0);
+    this.showHint();
+  }
+
+  setupScale() {
+    const scale = () => {
+      const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      const x = (window.innerWidth - 1920 * f) / 2;
+      const y = (window.innerHeight - 1080 * f) / 2;
+      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale();
+    window.addEventListener('resize', scale);
+  }
+
+  setupNav() {
+    document.addEventListener('keydown', (e) => {
+      const k = e.key;
+      if (k === 'ArrowRight' || k === 'ArrowDown' || k === ' ' || k === 'PageDown') { e.preventDefault(); this.next(); }
+      else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); this.prev(); }
+      else if (k === 'Home') { e.preventDefault(); this.show(0); }
+      else if (k === 'End') { e.preventDefault(); this.show(this.slides.length - 1); }
+      else if (k === 'o' || k === 'O') { this.toggleOverview(); }
+      else if (k === 'f' || k === 'F') { this.toggleFullscreen(); }
+      else if (k === 'Escape') { this.overview.classList.remove('open'); }
+    });
+
+    document.getElementById('prevBtn').onclick = () => this.prev();
+    document.getElementById('nextBtn').onclick = () => this.next();
+    document.getElementById('overviewBtn').onclick = () => this.toggleOverview();
+    document.getElementById('fullBtn').onclick = () => this.toggleFullscreen();
+
+    // 控件只在鼠标移动时出现，避免每翻一页就闪一块
+    const controls = document.getElementById('controls');
+    let hideTimer = null;
+    const wake = () => {
+      controls.classList.add('show');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => controls.classList.remove('show'), 2200);
+    };
+    window.addEventListener('mousemove', wake, { passive: true });
+    controls.addEventListener('mouseenter', () => { clearTimeout(hideTimer); controls.classList.add('show'); });
+    controls.addEventListener('mouseleave', wake);
+
+    // 滚轮翻页（节流，避免触控板一次滑动跳多页）
+    let lock = false;
+    window.addEventListener('wheel', (e) => {
+      if (this.overview.classList.contains('open')) return;
+      if (lock) return;
+      if (Math.abs(e.deltaY) < 24) return;
+      lock = true;
+      setTimeout(() => { lock = false; }, 620);
+      e.deltaY > 0 ? this.next() : this.prev();
+    }, { passive: true });
+
+    // 触屏滑动
+    let sx = 0, sy = 0;
+    window.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? this.next() : this.prev(); }
+    }, { passive: true });
+  }
+
+  buildOverview() {
+    const grid = document.getElementById('overviewGrid');
+    this.slides.forEach((s, i) => {
+      const d = document.createElement('div');
+      d.className = 'overview-item';
+      d.innerHTML = `<b>${String(i + 1).padStart(2, '0')}</b><span>${s.dataset.label || ''}</span>`;
+      d.onclick = () => { this.show(i); this.overview.classList.remove('open'); };
+      grid.appendChild(d);
+    });
+  }
+
+  toggleOverview() { this.overview.classList.toggle('open'); }
+
+  toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  }
+
+  showHint() {
+    const hint = document.getElementById('hint');
+    hint.classList.add('show');
+    setTimeout(() => hint.classList.remove('show'), 4200);
+  }
+
+  next() { this.show(this.current + 1); }
+  prev() { this.show(this.current - 1); }
+
+  show(i) {
+    this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+    this.slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === this.current);
+      s.classList.toggle('visible', idx === this.current);
+    });
+    this.count.textContent = `${String(this.current + 1).padStart(2, '0')} / ${String(this.slides.length).padStart(2, '0')}`;
+    this.progress.style.width = `${((this.current + 1) / this.slides.length) * 100}%`;
+  }
+}
+
+new SlidePresentation();
+</script>
+</body>
+</html>

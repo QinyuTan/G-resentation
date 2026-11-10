@@ -52,6 +52,21 @@ G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
 
 **只认真产物。** 样稿阶段不接受截图。截图看不出缩放溢出、看不出动画卡顿、看不出字被挡住。要么给能打开的文件，要么别说做完了。
 
+## 四份真样例
+
+![同一主题，两种受众](docs/images/samples-zh.png)
+
+同一份行业事实，讲给客户和讲给同事，结构完全不同：对外先给判断、每条带出处、收尾讲"不该做什么"；对内只留三条硬事实，其余换成"关我什么事"，收尾是"三个人，一个场景"。
+
+| 样例 | 场合 | 版式 | 页数 |
+|---|---|---|---|
+| [客户提案](samples/client-proposal/) | 会后发 PDF | 咨询版式，白底蓝调 | 14 |
+| [全员宣讲](samples/internal-briefing/) | 现场招募试点 | 深色大字报，橙调 | 8 |
+| [内部培训](samples/training/) | 要打印讲义 | 米色教学，4:3 画布 | 6 |
+| [部门周会](samples/weekly-sync/) | 小事档，填表就走 | 深色极简 | 5 |
+
+每份都带 `brief.md` 和 `outline.md`，双击目录里的 `index.html` 就能翻页。差别不在配色——同样一句"做个 AI 行业现状"，换受众之后，标题怎么起、证据放几页、最后一句说什么，全都变了。
+
 ## 安装
 
 一条命令，装到全局：
@@ -124,6 +139,8 @@ skills/g-resentation/
     └── snapshot.py       留版
 ```
 
+仓库根目录另有 `samples/`：四份完整样例（客户提案、全员宣讲、内部培训、部门周会），每份都带 `brief.md` 与 `outline.md`，可以直接打开看。
+
 ## 它不做的事
 
 - 已有逐页大纲只求排版、只要美化、只改一页、只转格式——直接交给制作工具，不用走这套流程
@@ -160,6 +177,19 @@ The order isn't invented for this repo. Across three-plus years of consulting an
 ![One sentence, two outcomes](docs/images/compare-en.png)
 
 The left side isn't a strawman — it's the cheapest correct-looking output when nothing is constrained: every slide is titled with a category, every slide is true, none of them moves a decision. The left image is a representative illustration, not a verbatim reproduction of one specific run; the right image is real output.
+
+**Four finished samples.** Same industry facts, two audiences — and the deck changes shape: to clients, judgement first, every claim sourced, closing on what *not* to do; to colleagues, three hard facts and the rest answers "why me", closing on "three people, one scenario, ninety days".
+
+![One topic, two audiences](docs/images/samples-en.png)
+
+| Sample | Occasion | Layout | Pages |
+|---|---|---|---|
+| [Client proposal](samples/client-proposal/) | PDF after the meeting | Consulting, white + blue | 14 |
+| [All-hands](samples/internal-briefing/) | Recruit pilot volunteers | Dark poster, orange | 8 |
+| [Training](samples/training/) | Printed handout | Warm paper, 4:3 | 6 |
+| [Weekly sync](samples/weekly-sync/) | Small job, form only | Dark minimal | 5 |
+
+Each ships with its `brief.md` and `outline.md`; open any `index.html` and use the arrow keys.
 
 Not another topic-to-slides generator. It owns the part between a blank page and something you can hand to a client.
 
