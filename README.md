@@ -8,6 +8,16 @@ G-resentation 在你的 AI 动手之前先拦住它，把需求问到说不出�
 
 ![G-resentation 能力展示：六种页面版式与关键数字](docs/images/hero-zh.png)
 
+## 它怎么跟你配合
+
+这张图里，橙色的方块全部是停下来等你的地方，虚线是你在推翻 AI 的判断。
+
+![G-resentation 七步流程：橙色是等你拍板的地方](docs/images/flow-zh.png)
+
+**起点是你的一句话，终点是你愿意拿出去的东西。** 中间每一次停顿，都是把决策权交回给你：判档你可以改判，需求你可以补，逐页稿你可以删页，样稿你可以否决方向，验收不过就改到过。AI 只负责问、编排和记录，不替你决定这份东西讲给谁听。
+
+这套顺序不是凭空设计的。三年多的咨询与研究项目里，返工几乎从不发生在排版上，而是发生在"没人问清楚"那一步：讲给谁、听完要做什么、哪些数字有出处。所以流程把检查点放在这三个位置，而不是放在最后的美化环节。
+
 ## 它解决的问题
 
 一句话丢给 AI："帮我做个 PPT。"你会拿到四十页，结构是新闻稿式的，每一页都在介绍，没有一页在说服。改到第三版，已经不像你要的东西了。
@@ -44,14 +54,24 @@ G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
 
 ## 安装
 
-需要 Python 3.10+。技能本身零依赖，只用标准库。
+一条命令，装到全局：
+
+```bash
+npx skills add QinyuTan/G-resentation --skill g-resentation -g -y
+```
+
+不想用 npx，手动也行，需要 Python 3.10+（技能本身零依赖，只用标准库）：
 
 ```bash
 git clone https://github.com/QinyuTan/G-resentation.git
 cp -r G-resentation/skills/g-resentation ~/.agents/skills/
 ```
 
-其他 agent 平台的技能目录见各自的文档；`SKILL.md` 的位置就是技能目录。
+其他 agent 平台的技能目录见各自的文档；`SKILL.md` 的位置就是技能目录。装完跑一次自检，它会告诉你缺什么、下一步敲什么：
+
+```bash
+python3 ~/.agents/skills/g-resentation/scripts/doctor.py
+```
 
 四个制作工具是可选的，按你选的路线装，缺了就自动降级：
 
@@ -125,9 +145,17 @@ MIT，见 [LICENSE](LICENSE)。
 
 **Most bad decks don't fail on layout. They fail because nobody asked who the deck is for and what the audience should do afterwards.**
 
+G-resentation (from *grill me in presentation*) stops your agent before it starts generating. It interviews you until the brief is unambiguous, freezes the page numbers, routes the build to the right tool, and checks the result against a fixed list.
+
 ![G-resentation: six page types and the numbers behind them](docs/images/hero-en.png)
 
-G-resentation (from *grill me in presentation*) stops your agent before it starts generating. It interviews you until the brief is unambiguous, freezes the page numbers, routes the build to the right tool, and checks the result against a fixed list.
+**How it works with you.** Every orange box below is a place where it stops and waits for your call. Every dashed arrow is you overruling the agent.
+
+![G-resentation: seven steps, three stops for you](docs/images/flow-en.png)
+
+The input is one sentence from you; the output is something you're willing to hand over. The agent asks, routes, and records — it does not decide who the deck is for.
+
+The order isn't invented for this repo. Across three-plus years of consulting and research projects, rework almost never came from layout; it came from the step nobody asked about — who's listening, what they should do next, which numbers have a source. So the gates sit there, not at the polish stage.
 
 ![One sentence, two outcomes](docs/images/compare-en.png)
 
@@ -138,6 +166,12 @@ Not another topic-to-slides generator. It owns the part between a blank page and
 **Five stops:** classify the job by "can a mistake be undone" → gather requirements (one question at a time, four audience dimensions) → lock a seven-field per-page outline with frozen IDs → build the three hardest pages as real artifacts (openable HTML, full-resolution PNG, working PPTX — never screenshots) → run a four-category acceptance pass.
 
 **Two things others skip:** page IDs are frozen with a stored baseline, so "edit P07" always points at P07 and an added page is caught automatically; and samples must be real products, not screenshots.
+
+**Install in one line:**
+
+```bash
+npx skills add QinyuTan/G-resentation --skill g-resentation -g -y
+```
 
 **Requirements:** Python 3.10+. Zero runtime dependencies. Three build tools are optional; the flow degrades gracefully without them.
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>G-resentation · flow</title>
+<style>
+  :root { --ink:#051C2C; --muted:#5B6B7C; --faint:#8A94A0; --accent:#2251FF; --gate:#C2410C; --gate-bg:#FFF4E5; --rule:#D9DEE5; --panel:#F4F6F8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1280px; height:620px; overflow:hidden; background:#fff; }
+  body { font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); position:relative; }
+  .head { position:absolute; left:44px; top:32px; }
+  .kicker { font-size:12px; letter-spacing:.22em; color:var(--accent); font-weight:600; }
+  h1 { font-size:30px; margin-top:8px; letter-spacing:-.01em; }
+  .sub { font-size:13px; color:var(--muted); margin-top:8px; }
+
+  .row { position:absolute; left:44px; top:206px; display:flex; gap:20px; }
+  .node {
+    position:relative; width:154px; height:136px; border:1px solid var(--rule); background:#fff;
+    padding:14px 15px; display:flex; flex-direction:column; justify-content:flex-start; gap:8px;
+  }
+  .node:not(:last-child)::after {
+    content:"→"; position:absolute; right:-16px; top:58px; font-size:13px; color:var(--rule);
+  }
+  .node b { font-size:16px; font-weight:700; }
+  .node span { font-size:11.5px; color:var(--muted); line-height:1.5; }
+  .node.gate { background:var(--gate-bg); border:2px solid var(--gate); }
+  .node.gate b { color:var(--gate); }
+  .node.end { background:var(--ink); border-color:var(--ink); }
+  .node.end b, .node.end span { color:#fff; }
+  .badge {
+    position:absolute; font-size:10px; letter-spacing:.06em; color:var(--gate);
+    background:var(--gate-bg); border:1px solid var(--gate); padding:2px 7px; white-space:nowrap;
+  }
+  .arrow { position:absolute; top:238px; width:18px; height:1px; background:var(--rule); }
+  .arrow::after { content:""; position:absolute; right:0; top:-3px; border-left:6px solid var(--rule); border-top:3.5px solid transparent; border-bottom:3.5px solid transparent; }
+  .return { position:absolute; font-size:11px; color:var(--faint); }
+  .return path { fill:none; stroke:var(--faint); stroke-width:1.2; stroke-dasharray:4 4; }
+  .decisions { position:absolute; left:44px; right:44px; top:474px; display:flex; gap:20px; }
+  .decisions div { flex:1; border-top:2px solid var(--gate); padding-top:10px; font-size:11.5px; color:var(--muted); line-height:1.5; }
+  .decisions b { display:block; color:var(--gate); font-size:12px; margin-bottom:4px; }
+  .foot { position:absolute; left:44px; right:44px; bottom:26px; display:flex; justify-content:space-between; border-top:1px solid var(--rule); padding-top:12px; font-size:11px; color:var(--faint); }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="kicker">HOW IT WORKS WITH YOU</div>
+    <h1 id="title">起点是你的需求，终点是你愿意拿出去的东西</h1>
+    <p class="sub" id="sub">橙色是停下来等你的地方，虚线是你在推翻 AI 的判断</p>
+  </div>
+
+  <!-- 返回箭头（先画，压在节点下面） -->
+  <svg class="return" width="1280" height="620" style="position:absolute;left:0;top:0;pointer-events:none">
+    <!-- 样稿 → 逐页稿 -->
+    <path d="M 566 348 C 566 430, 386 430, 386 348" />
+    <!-- 验收 → 分批 -->
+    <path d="M 812 348 C 812 430, 706 430, 706 348" />
+  </svg>
+  <div class="return" style="left:398px; top:432px; color:var(--faint)" id="ret1">方向不对 → 回去改稿</div>
+  <div class="return" style="left:674px; top:432px; color:var(--faint)" id="ret2">不过 → 只改 P07</div>
+
+  <div class="row">
+    <div class="node gate"><b id="t1">1 判档</b><span id="n1">错了能不能改回来，一句话告知，你可以改判</span></div>
+    <div class="node gate"><b id="t2">2 问需求</b><span id="n2">内容三件 + 受众四维 + 形态，问完复述给你确认</span></div>
+    <div class="node"><b id="t3">3 逐页稿</b><span id="n3">每页七项，P01 起编号；你一确认就冻结</span></div>
+    <div class="node gate"><b id="t4">4 三页样稿</b><span id="n4">封面、信息最多、最复杂；给真产物不看截图</span></div>
+    <div class="node"><b id="t5">5 分批产出</b><span id="n5">每 10 页报一次，不逐页请示</span></div>
+    <div class="node gate"><b id="t6">6 四类验收</b><span id="n6">内容 / 画面 / 操作 / 备用稿，不过就改</span></div>
+    <div class="node end"><b id="t7">7 交付</b><span id="n7">入口文件、运行条件、已知限制</span></div>
+  </div>
+
+  <div class="decisions">
+    <div><b id="d1t">你改判轻重</b><span id="d1">一句话就能从"大事"降回"小事"，不必解释</span></div>
+    <div><b id="d2t">你补充受众</b><span id="d2">答不上来的问题会再问，不替你编</span></div>
+    <div><b id="d3t">你否决方向</b><span id="d3">三页样稿不对就停，不铺到五十页</span></div>
+  </div>
+
+  <div class="foot">
+    <span id="foot-l">每一步的起点都是你的判断：需求、受众、页数、取舍、要不要继续。</span>
+    <span><b>github.com/QinyuTan/G-resentation</b></span>
+  </div>
+
+<script>
+const L = {
+  zh: {
+    title: "起点是你的需求，终点是你愿意拿出去的东西",
+    sub: "橙色是停下来等你的地方，虚线是你在推翻 AI 的判断",
+    n1: "错了能不能改回来，一句话告知，你可以改判",
+    n2: "内容三件 + 受众四维 + 形态，问完复述给你确认",
+    n3: "每页七项，P01 起编号；你一确认就冻结",
+    n4: "封面、信息最多、最复杂；给真产物不看截图",
+    n5: "每 10 页报一次，不逐页请示",
+    n6: "内容 / 画面 / 操作 / 备用稿，不过就改",
+    n7: "入口文件、运行条件、已知限制",
+    r1: "方向不对 → 回去改稿", r2: "不过 → 只改 P07",
+    foot: "每一步的起点都是你的判断：需求、受众、页数、取舍、要不要继续。",
+    t1:"1 判档", t2:"2 问需求", t3:"3 逐页稿", t4:"4 三页样稿", t5:"5 分批产出", t6:"6 四类验收", t7:"7 交付",
+    d1t: "你改判轻重", d1: "一句话就能从\"大事\"降回\"小事\"，不必解释",
+    d2t: "你补充受众", d2: "答不上来的问题会再问，不替你编",
+    d3t: "你否决方向", d3: "三页样稿不对就停，不铺到五十页"
+  },
+  en: {
+    title: "It starts with your need, and ends with something you'll hand over",
+    sub: "Orange means it waits for you. Dashed lines are you overruling the agent.",
+    n1: "Can a mistake be undone? One line, and you can overrule",
+    n2: "Content + four audience dimensions + delivery form, then read back to you",
+    n3: "Seven fields per page, IDs from P01; frozen the moment you confirm",
+    n4: "Cover, densest page, hardest diagram — real files, never screenshots",
+    n5: "Report every 10 pages, never ask page by page",
+    n6: "Content / layout / interaction / backup copy — fix until it passes",
+    n7: "Entry file, runtime requirements, known limits",
+    r1: "wrong direction → back to the outline", r2: "fails → edit P07 only",
+    foot: "Every step starts with your judgement: needs, audience, page count, trade-offs, whether to continue.",
+    t1:"1 Classify", t2:"2 Requirements", t3:"3 Outline", t4:"4 Sample pages", t5:"5 Build", t6:"6 Acceptance", t7:"7 Deliver",
+    d1t: "You override the size", d1: "One line moves a \"big\" job back to \"small\" — no justification needed",
+    d2t: "You fill the audience", d2: "Questions you can't answer get asked again, never invented",
+    d3t: "You veto the direction", d3: "Three pages are wrong, nothing scales to fifty"
+  }
+};
+const lang = (new URLSearchParams(location.search).get("lang") === "en") ? "en" : "zh";
+const t = L[lang];
+const set = (id, v) => document.getElementById(id).textContent = v;
+set("title", t.title); set("sub", t.sub);
+["n1","n2","n3","n4","n5","n6","n7"].forEach((k,i)=>set(k, t["n"+(i+1)]));
+set("ret1", t.r1); set("ret2", t.r2); set("foot-l", t.foot);
+["t1","t2","t3","t4","t5","t6","t7","d1t","d1","d2t","d2","d3t","d3"].forEach(k => set(k, t[k]));
+document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+</script>
+</body>
+</html>

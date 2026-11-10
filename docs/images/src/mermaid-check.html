@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>mermaid check</title>
+<style>
+  body { margin:0; padding:28px; font-family:"Microsoft YaHei",sans-serif; background:#fff; width:1240px; }
+  h2 { font-size:16px; color:#5B6B7C; margin:0 0 12px; }
+  .box { border:1px solid #D9DEE5; padding:12px; margin-bottom:24px; }
+</style>
+</head>
+<body>
+<h2>中文版</h2>
+<div class="box">
+<pre class="mermaid">
+flowchart TD
+    A(["你说：要做一份 XX"]) --> B{"判档<br/>做错了能不能改回来"}
+    B -->|"内部、随时能重做"| C1["填表<br/>内容六项 + 素材 + 形态"]
+    B -->|"对外、评审、存档"| C2["一次一问<br/>内容三件 + 受众四维 + 形态"]
+    C1 --> R{"你确认<br/>给谁看 / 要他们做什么 / 记住什么"}
+    C2 --> R
+    R -->|"有出入，重问"| C2
+    R -->|"确认"| D["逐页稿 P01…<br/>观点 / 证据 / 来源"]
+    D --> F{"你确认"}
+    F -->|"要改"| D
+    F -->|"冻结页码"| S["三页最难样稿<br/>真产物，不是截图"]
+    S -->|"方向不对"| D
+    S -->|"方向对"| G["分批产出<br/>每 10 页报一次"]
+    G --> H{"四类验收<br/>内容 / 画面 / 操作 / 备用稿"}
+    H -->|"不过"| I["只改 P07<br/>不整份重做"]
+    I --> H
+    H -->|"通过"| Z(["交付<br/>入口 / 条件 / 已知限制"])
+
+    classDef gate fill:#FFF4E5,stroke:#C2410C,stroke-width:2px;
+    class B,R,F,S,H gate;
+</pre>
+</div>
+
+<h2>English</h2>
+<div class="box">
+<pre class="mermaid">
+flowchart TD
+    A(["You: I need a deck about X"]) --> B{"Classify<br/>can a mistake be undone?"}
+    B -->|"internal, redoable"| C1["Fill a form<br/>six content fields + assets + form"]
+    B -->|"client, review, archived"| C2["One question at a time<br/>content + four audience dimensions + form"]
+    C1 --> R{"You confirm<br/>who watches / what they do / what sticks"}
+    C2 --> R
+    R -->|"doesn't match, ask again"| C2
+    R -->|"confirmed"| D["Page outline P01…<br/>claim / evidence / source"]
+    D --> F{"You confirm"}
+    F -->|"revise"| D
+    F -->|"freeze IDs"| S["Three hardest pages<br/>real files, never screenshots"]
+    S -->|"wrong direction"| D
+    S -->|"approved"| G["Build in batches<br/>report every 10 pages"]
+    G --> H{"Four acceptance checks<br/>content / layout / interaction / backup"}
+    H -->|"fails"| I["Edit P07 only<br/>no full rebuild"]
+    I --> H
+    H -->|"passes"| Z(["Deliver<br/>entry file / requirements / known limits"])
+
+    classDef gate fill:#FFF4E5,stroke:#C2410C,stroke-width:2px;
+    class B,R,F,S,H gate;
+</pre>
+</div>
+
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "default", flowchart: { htmlLabels: true, curve: "basis" } });
+</script>
+</body>
+</html>
