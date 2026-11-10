@@ -1,0 +1,28 @@
+docs/images/src/typical-page.html
+  s_a021e8a85011df::t_61193701983ebe 1-42
+README.md
+  s_a021e8a85011df::t_dc4338aeb2e83c 19-26
+  s_a021e8a85011df::t_8a8245e2560088 128-129,132-134
+  s_a021e8a85011df::t_5a3c94b60106fc 9-10
+docs/images/src/hero.html
+  s_a021e8a85011df::t_c190aede4254fa 11,16,19-20,24,71-72
+  s_a021e8a85011df::t_e3021edb0c3cbb 1-10,12-15,17-18,21-23,25-70,73-88
+docs/images/src/compare.html
+  s_a021e8a85011df::t_eda812d493bc3d 1-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "2d9caf31133f7694dacdaac17f1ce63d73c6b7b7",
+  "prompts": {},
+  "sessions": {
+    "s_a021e8a85011df": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_d5ldynw7zo2i",
+        "model": "auto(free)"
+      },
+      "human_author": "Terri Tan <QinyuTan@users.noreply.github.com>"
+    }
+  }
+}
