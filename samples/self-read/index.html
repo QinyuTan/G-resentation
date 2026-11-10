@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>供应商评估备忘 · 备查版</title>
+<style>
+  :root{--ink:#1A1A1A;--muted:#5F6670;--faint:#8E959E;--accent:#7A2E2E;--rule:#DDD8D2;--panel:#F7F5F2;--stage:#EFEAE4;--slide:#FFFFFF;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--stage)}
+  .deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage)}
+  .deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide)}
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide);padding:84px 110px;color:var(--ink);font-family:"Source Han Serif SC","Songti SC","SimSun",serif}
+  .slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+  .doc-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:14px;font-size:17px;color:var(--faint);letter-spacing:.1em}
+  .doc-head .t{color:var(--accent);letter-spacing:.16em}
+  h1{font-size:64px;line-height:1.25;margin-top:40px;font-weight:600;letter-spacing:-.01em;max-width:1400px}
+  h2{font-size:38px;line-height:1.35;font-weight:600;margin-bottom:22px}
+  h3{font-size:26px;font-weight:600;margin-bottom:10px}
+  p{font-size:22px;line-height:1.85;color:#333}
+  .lead{font-size:26px;line-height:1.8;color:#333;max-width:1450px;margin-top:26px}
+  .two{display:grid;grid-template-columns:1.25fr .75fr;gap:64px;margin-top:38px}
+  .note{background:var(--panel);padding:26px 28px;border-left:3px solid var(--accent)}
+  .note p{font-size:19px;line-height:1.75;color:var(--muted)}
+  .meta-table{width:100%;border-collapse:collapse;margin-top:34px}
+  .meta-table td{padding:12px 0;font-size:19px;border-bottom:1px solid var(--rule);vertical-align:top}
+  .meta-table td:first-child{width:200px;color:var(--faint)}
+  .findings{display:flex;flex-direction:column;gap:26px;margin-top:34px}
+  .finding{display:grid;grid-template-columns:70px 1fr;gap:22px}
+  .finding .n{font-size:34px;color:var(--accent);line-height:1.2}
+  .finding .t{font-size:25px;font-weight:600;margin-bottom:8px}
+  .finding p{font-size:20px;line-height:1.8}
+  table.data{width:100%;border-collapse:collapse;margin-top:22px}
+  table.data th,table.data td{font-size:19px;padding:12px 14px;border-bottom:1px solid var(--rule);text-align:left}
+  table.data th{color:var(--faint);font-weight:500;border-top:1px solid var(--ink)}
+  .foot{position:absolute;left:110px;right:110px;bottom:40px;display:flex;justify-content:space-between;font-size:16px;color:var(--faint);border-top:1px solid var(--rule);padding-top:12px}
+  .progress{position:fixed;left:0;top:0;height:2px;background:var(--accent);width:0;z-index:10;transition:width .3s ease}
+  @media print{.progress{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide active visible">
+      <div class="doc-head"><span class="t">内部备忘 · 备查</span><span>文件编号 M-2026-11-04 · 第 1 页 / 共 5 页</span></div>
+      <h1>供应商 A 与 B 的评估结论：<br>建议按场景拆分，不做整体替换</h1>
+      <p class="lead">本备忘供采购、业务与技术三方存档查阅。结论基于 2026 年 9–10 月的试用与报价，不构成对外承诺。全文五页，每页可独立阅读。</p>
+      <table class="meta-table">
+        <tr><td>评估对象</td><td>供应商 A（现用）、供应商 B（试用 6 周）</td></tr>
+        <tr><td>涉及范围</td><td>订单查询、对账、客服工单三类场景，共 5 个接口</td></tr>
+        <tr><td>未覆盖</td><td>支付链路、跨境结算、历史数据迁移</td></tr>
+        <tr><td>结论有效期</td><td>2026-12-31，到期需按当时报价重新评估</td></tr>
+      </table>
+      <div class="foot"><span>编写：技术评估组</span><span>2026-11-04</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="doc-head"><span class="t">一 · 背景与范围</span><span>第 2 页 / 共 5 页</span></div>
+      <h2>为什么现在评估：现用供应商的续费涨价 18%，且不包含新增接口</h2>
+      <div class="two">
+        <div>
+          <p>现用供应商 A 覆盖三类场景，年费 48 万元，2027 年起报价上浮 18%，新增接口按 3 万元/个计价。试用 B 六周，覆盖同样三类场景中的两类，报价 32 万元，第三类需二次开发。</p>
+          <p style="margin-top:18px">本次评估只回答"是否整体替换"，不回答"哪家更好"——两者在不同场景下的结论并不一致，见第 3 页。</p>
+        </div>
+        <div class="note">
+          <h3 style="font-size:20px">口径说明</h3>
+          <p>费用为年度报价含税，未含实施人力；试用期数据来自两个系统的接口日志，抽样 30 天。</p>
+        </div>
+      </div>
+      <div class="foot"><span>数据来源：A、B 两家正式报价单；内部接口日志</span><span>2026-11-04</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="doc-head"><span class="t">二 · 关键发现</span><span>第 3 页 / 共 5 页</span></div>
+      <h2>两类场景结论相反：查询可以换，对账不能换</h2>
+      <div class="findings">
+        <div class="finding">
+          <div class="n">01</div>
+          <div><div class="t">查询类：B 的响应更快，切换成本低</div><p>平均响应 180ms 对 260ms，接口结构相近，切换约需 3 人日。此场景建议切换。</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">02</div>
+          <div><div class="t">对账类：B 缺少历史回溯，无法满足审计</div><p>B 仅保留 90 天流水，A 保留 3 年。审计要求 3 年，此条为硬约束，不因价格改变。</p></div>
+        </div>
+        <div class="finding">
+          <div class="n">03</div>
+          <div><div class="t">工单类：两家持平，先不动</div><p>准确率差距在 2 个百分点内，切换收益不足以覆盖风险。</p></div>
+        </div>
+      </div>
+      <div class="foot"><span>响应时间为 30 天 P50 值；审计要求见内控文件第 4.2 条</span><span>第 3 页 / 共 5 页</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="doc-head"><span class="t">三 · 风险与限制</span><span>第 4 页 / 共 5 页</span></div>
+      <h2>三条风险，两条我们已经有了应对，一条没有</h2>
+      <table class="data">
+        <tr><th>风险</th><th>影响</th><th>应对</th><th>状态</th></tr>
+        <tr><td>B 的第三类场景需二次开发</td><td>可能延期 6–8 周</td><td>分批上线，先切查询</td><td>已有方案</td></tr>
+        <tr><td>双供应商并行增加运维成本</td><td>约 0.3 人力/年</td><td>统一网关层，收敛告警</td><td>已有方案</td></tr>
+        <tr><td>B 的公司规模较小，经营风险未知</td><td>若中断需回切 A</td><td>保留 A 的账号 12 个月</td><td>需财务复核</td></tr>
+      </table>
+      <p class="lead" style="margin-top:26px">最后一条没有稳妥方案，建议交由财务与法务判断，不在本备忘里下结论。</p>
+      <div class="foot"><span>运维成本为估算，按现有 5 人团队折算</span><span>第 4 页 / 共 5 页</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="doc-head"><span class="t">四 · 结论与建议</span><span>第 5 页 / 共 5 页</span></div>
+      <h2>建议分两步：先切查询，对账维持现状，工单观察一个季度</h2>
+      <div class="two">
+        <div>
+          <p><strong>第一步（11 月）：</strong>查询类切换至 B，保留 A 账号作为回退路径，切换窗口选在业务低峰期。</p>
+          <p style="margin-top:14px"><strong>第二步（12 月）：</strong>依据切换后 30 天的成功率与响应数据，决定工单类是否跟进。</p>
+          <p style="margin-top:14px"><strong>不做的事：</strong>对账类不切换；不整体替换；不签多年期合同。</p>
+        </div>
+        <div class="note">
+          <h3 style="font-size:20px">谁来看这一页</h3>
+          <p>采购看第 2 页费用口径；技术看第 3 页发现；财务与法务看第 4 页第三条；管理层只看本页。</p>
+        </div>
+      </div>
+      <div class="foot"><span>本备忘不替代采购流程，仅为技术评估输入</span><span>第 5 页 / 共 5 页</span></div>
+    </section>
+
+  </main>
+</div>
+<script>
+class Deck{constructor(){this.s=Array.from(document.querySelectorAll('.slide'));this.st=document.getElementById('stage');this.p=document.getElementById('progress');this.i=0;
+const fit=()=>{const f=Math.min(innerWidth/1920,innerHeight/1080);this.st.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`};fit();addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1)}if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.s.length-1);if(e.key.toLowerCase()==='f')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()});this.go(0)}
+go(n){this.i=Math.max(0,Math.min(n,this.s.length-1));this.s.forEach((el,k)=>{el.classList.toggle('active',k===this.i);el.classList.toggle('visible',k===this.i)});this.p.style.width=((this.i+1)/this.s.length*100)+'%'}}
+new Deck();
+</script>
+</body>
+</html>

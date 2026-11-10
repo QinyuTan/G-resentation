@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>seven scenarios</title>
+<style>
+  :root{--ink:#051C2C;--muted:#5B6B7C;--faint:#8A94A0;--accent:#2251FF;--rule:#D9DEE5;--panel:#F6F8FA;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden;background:#fff}
+  body{font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+  .wrap{width:1280px;height:720px;padding:34px 44px 22px;display:flex;flex-direction:column}
+  header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:14px}
+  h1{font-size:30px;letter-spacing:-.01em}
+  .sub{font-size:12px;color:var(--faint)}
+  .legend{display:flex;gap:26px;margin-top:12px;font-size:11.5px;color:var(--muted)}
+  .legend b{color:var(--accent);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+  .card{border:1px solid var(--rule);padding:16px 16px 14px;display:flex;flex-direction:column;gap:7px;background:#fff;min-height:196px}
+  .card:first-child{border-color:var(--accent);border-width:2px}
+  .n{font-size:11px;letter-spacing:.16em;color:var(--accent)}
+  .t{font-size:17px;font-weight:700;line-height:1.35}
+  .m{font-size:12px;color:#3E4C5A;line-height:1.5}
+  .m span{color:var(--faint)}
+  .dir{margin-top:auto;font-size:10.5px;color:var(--faint);font-family:Consolas,monospace}
+  .empty{border:1px dashed var(--rule);background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--faint);text-align:center;line-height:1.6}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .strip div{background:var(--panel);padding:14px 16px;font-size:11.5px;color:var(--muted);line-height:1.6}
+  .strip b{display:block;color:var(--ink);font-size:12px;margin-bottom:4px}
+  footer{display:flex;justify-content:space-between;margin-top:auto;border-top:1px solid var(--rule);padding-top:10px;font-size:11px;color:var(--faint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">七种场合，一套流程</h1>
+    <div class="sub" id="sub">按"谁在场 × 要达成什么"划分，两两不重叠</div>
+  </header>
+
+  <div class="legend">
+    <span><b id="lg1">判据</b> <span id="lg1v">受众关系决定结构，目的决定收尾</span></span>
+    <span><b id="lg2">产物</b> <span id="lg2v">每份都带 brief 与逐页稿，可直接打开</span></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="strip">
+    <div><b id="st1t">同一套流程</b><span id="st1">判档 → 问需求 → 逐页稿 → 三页样稿 → 验收</span></div>
+    <div><b id="st2t">四种版式语言</b><span id="st2">咨询、大字报、教学、文档体</span></div>
+    <div><b id="st3t">七份都验过</b><span id="st3">机检通过，并在浏览器里逐页翻过、无溢出</span></div>
+  </div>
+
+  <footer>
+    <span id="foot-l">页数不代表工作量：小事档填表就走，大活逐条问到底。</span>
+    <span>github.com/QinyuTan/G-resentation/samples</span>
+  </footer>
+</div>
+
+<script>
+const DATA = {
+  zh: [
+    { n:"01", t:"客户提案", who:"外部 · 尚未合作", goal:"争取资源或签约", page:"14 页 · 咨询风", dir:"samples/client-proposal" },
+    { n:"02", t:"交付复盘", who:"外部 · 已合作", goal:"维护信任与续约", page:"5 页 · 青蓝数据", dir:"samples/delivery-review" },
+    { n:"03", t:"全员宣讲", who:"对内 · 一对多", goal:"动员与传播", page:"8 页 · 深色大字报", dir:"samples/internal-briefing" },
+    { n:"04", t:"内部决策", who:"对内 · 少数人", goal:"当场拍板", page:"5 页 · 深蓝琥珀", dir:"samples/decision-brief" },
+    { n:"05", t:"进度同步", who:"对内 · 团队", goal:"信息对齐", page:"5 页 · 深色极简", dir:"samples/weekly-sync" },
+    { n:"06", t:"培训赋能", who:"对内 · 学员", goal:"教会做某件事", page:"6 页 · 米色 4:3", dir:"samples/training" },
+    { n:"07", t:"自阅存档", who:"无人在场", goal:"事后能查能复核", page:"5 页 · 文档体", dir:"samples/self-read" },
+  ],
+  en: [
+    { n:"01", t:"Client proposal", who:"External · new", goal:"Win budget or signature", page:"14 slides · consulting", dir:"samples/client-proposal" },
+    { n:"02", t:"Delivery review", who:"External · existing", goal:"Keep trust, renew", page:"5 slides · teal data", dir:"samples/delivery-review" },
+    { n:"03", t:"All-hands", who:"Internal · one-to-many", goal:"Mobilise and spread", page:"8 slides · dark poster", dir:"samples/internal-briefing" },
+    { n:"04", t:"Decision brief", who:"Internal · few people", goal:"Decide in the room", page:"5 slides · navy amber", dir:"samples/decision-brief" },
+    { n:"05", t:"Weekly sync", who:"Internal · team", goal:"Get everyone aligned", page:"5 slides · dark minimal", dir:"samples/weekly-sync" },
+    { n:"06", t:"Training", who:"Internal · learners", goal:"Teach a skill", page:"6 slides · 4:3 paper", dir:"samples/training" },
+    { n:"07", t:"Self-read memo", who:"Nobody in the room", goal:"Be auditable later", page:"5 slides · document", dir:"samples/self-read" },
+  ]
+};
+const T = {
+  zh:{ title:"七种场合，一套流程", sub:"按“谁在场 × 要达成什么”划分，两两不重叠",
+       lg1:"判据", lg1v:"受众关系决定结构，目的决定收尾", lg2:"产物", lg2v:"每份都带 brief 与逐页稿，可直接打开",
+       foot:"页数不代表工作量：小事档填表就走，大活逐条问到底。", empty:"同一套流程，换个场合就换结构",
+       st1t:"同一套流程", st1:"判档 → 问需求 → 逐页稿 → 三页样稿 → 验收",
+       st2t:"四种版式语言", st2:"咨询、大字报、教学、文档体",
+       st3t:"七份都验过", st3:"机检通过，并在浏览器里逐页翻过、无溢出" },
+  en:{ title:"Seven occasions, one pipeline", sub:"Split by “who is in the room × what must happen”, with no overlaps",
+       lg1:"Split", lg1v:"Audience sets structure; purpose sets the closing", lg2:"Artifacts", lg2v:"Every sample ships with its brief and page outline",
+       foot:"Page count isn't effort: small jobs get a form, big ones get interviewed.", empty:"Same pipeline, different room, different structure",
+       st1t:"One pipeline", st1:"classify → interview → outline → 3-page sample → acceptance",
+       st2t:"Four visual languages", st2:"consulting, poster, teaching, document",
+       st3t:"All seven verified", st3:"checked by scripts, paged through in a browser, no overflow" }
+};
+const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "zh";
+const t = T[lang], list = DATA[lang];
+document.getElementById("title").textContent = t.title;
+document.getElementById("sub").textContent = t.sub;
+document.getElementById("lg1").textContent = t.lg1;
+document.getElementById("lg1v").textContent = t.lg1v;
+document.getElementById("lg2").textContent = t.lg2;
+document.getElementById("lg2v").textContent = t.lg2v;
+document.getElementById("foot-l").textContent = t.foot;
+const grid = document.getElementById("grid");
+for (const it of list) {
+  const el = document.createElement("div");
+  el.className = "card";
+  el.innerHTML = `<div class="n">${it.n}</div><div class="t">${it.t}</div>
+    <div class="m"><span>谁在场</span>　${it.who}</div>
+    <div class="m"><span>要达成</span>　${it.goal}</div>
+    <div class="m"><span>产出</span>　${it.page}</div>
+    <div class="dir">${it.dir}</div>`;
+  grid.appendChild(el);
+}
+["st1t","st1","st2t","st2","st3t","st3"].forEach(k => document.getElementById(k).textContent = t[k]);
+const empty = document.createElement("div");
+empty.className = "card empty";
+empty.textContent = t.empty;
+grid.appendChild(empty);
+document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+</script>
+</body>
+</html>

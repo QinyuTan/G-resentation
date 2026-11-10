@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下一步怎么走 · 三选一</title>
+<style>
+  :root{--ink:#0B1F3A;--muted:#5B6B7C;--faint:#8A94A0;--accent:#F2B233;--panel:#F4F6F8;--rule:#D5DDE5;--stage:#050B14;--slide:#FFFFFF;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--stage)}
+  .deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage)}
+  .deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide)}
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide);padding:96px 120px;color:var(--ink);font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+  .slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+  .kicker{font-size:22px;letter-spacing:.22em;color:var(--muted)}
+  h1{font-size:104px;line-height:1.1;letter-spacing:-.025em;font-weight:800;margin-top:26px}
+  h2{font-size:58px;line-height:1.26;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:28px;line-height:1.6;color:var(--muted);margin-top:26px;max-width:1300px}
+  .cover{display:flex;flex-direction:column;justify-content:center;background:var(--ink);color:#fff}
+  .cover .kicker{color:var(--accent)}
+  .cover h1{color:#fff}
+  .cover .lede{color:#B8C4D0}
+  .cover .meta{position:absolute;left:120px;right:120px;bottom:96px;display:flex;justify-content:space-between;font-size:22px;color:#7E8FA0;border-top:1px solid rgba(255,255,255,.16);padding-top:22px}
+  .head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:20px}
+  .head .num{font-size:22px;color:var(--faint);letter-spacing:.18em}
+  .body{margin-top:50px}
+  .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .opt{border:1px solid var(--rule);padding:30px 28px;display:flex;flex-direction:column;gap:14px}
+  .opt.rec{border:2px solid var(--accent);background:#FFFBF0}
+  .opt .tag{font-size:19px;letter-spacing:.14em;color:var(--faint)}
+  .opt.rec .tag{color:#A66B00}
+  .opt h3{font-size:34px;line-height:1.3}
+  .opt ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:22px;color:#3E4C5A}
+  .opt li{display:grid;grid-template-columns:96px 1fr;gap:10px}
+  .opt li b{color:var(--faint);font-weight:500}
+  .opt .verdict{margin-top:auto;font-size:22px;font-weight:700}
+  .opt.rec .verdict{color:#A66B00}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:20px 18px;font-size:22px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-size:18px;color:var(--faint);font-weight:500;letter-spacing:.08em}
+  td:first-child{font-weight:600;width:24%}
+  .ask{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+  .ask div{border-left:4px solid var(--accent);padding-left:22px;font-size:26px;line-height:1.5}
+  .ask b{display:block;font-size:20px;color:var(--faint);letter-spacing:.1em;margin-bottom:8px;font-weight:500}
+  .foot{position:absolute;left:120px;right:120px;bottom:56px;font-size:19px;color:var(--faint);border-top:1px solid var(--rule);padding-top:14px}
+  .progress{position:fixed;left:0;top:0;height:3px;background:var(--accent);width:0;z-index:10;transition:width .3s ease}
+  @media print{.progress{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide cover active visible">
+      <div class="kicker">立项讨论 · 30 分钟</div>
+      <h1>今天只需要定一件事：<br>先做哪个。</h1>
+      <p class="lede">三个方案都算得过来，差别在代价什么时候付。我的建议在第三页。</p>
+      <div class="meta"><span>2026-11 · 参会：业务、技术、财务</span><span>01 / 05</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>三个方案，代价分别落在不同时间</h2><span class="num">02 / 05</span></div>
+      <div class="body">
+        <div class="opts">
+          <div class="opt">
+            <div class="tag">方案 A</div>
+            <h3>先补数据</h3>
+            <ul>
+              <li><b>周期</b>4 个月</li>
+              <li><b>成本</b>2 人全职</li>
+              <li><b>见效</b>晚，但一次到位</li>
+            </ul>
+            <div class="verdict">慢，但地基稳</div>
+          </div>
+          <div class="opt">
+            <div class="tag">方案 B</div>
+            <h3>先上轻量版</h3>
+            <ul>
+              <li><b>周期</b>6 周</li>
+              <li><b>成本</b>0.5 人</li>
+              <li><b>见效</b>快，覆盖 60% 场景</li>
+            </ul>
+            <div class="verdict">快，但会欠债</div>
+          </div>
+          <div class="opt rec">
+            <div class="tag">方案 C · 推荐</div>
+            <h3>先上轻量版，同时补关键数据</h3>
+            <ul>
+              <li><b>周期</b>10 周</li>
+              <li><b>成本</b>1.5 人</li>
+              <li><b>见效</b>第 7 周有第一个结果</li>
+            </ul>
+            <div class="verdict">两边都不极端</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot">周期与人力为估算区间，按现有排期折算；不含采购周期。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>为什么推荐 C：它把最贵的等待拆开了</h2><span class="num">03 / 05</span></div>
+      <div class="body">
+        <table>
+          <tr><th>考虑</th><th>A</th><th>B</th><th>C</th></tr>
+          <tr><td>第 8 周能看到什么</td><td>什么都没有</td><td>上线了，60% 场景可用</td><td>上线且核心场景数据已补</td></tr>
+          <tr><td>返工风险</td><td>低</td><td>高（数据债）</td><td>中</td></tr>
+          <tr><td>停下时的损失</td><td>4 个月人力</td><td>6 周人力，可接受</td><td>10 周人力，可接受</td></tr>
+          <tr><td>对客户承诺</td><td>不敢承诺</td><td>只能承诺 60%</td><td>可以分阶段承诺</td></tr>
+        </table>
+      </div>
+      <div class="foot">"停下时的损失"是关键判据：三个方案都可能被叫停，要选停得起的那个。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>C 的不确定性，我现在说不准的有两件</h2><span class="num">04 / 05</span></div>
+      <div class="body">
+        <table>
+          <tr><th>不确定</th><th>影响</th><th>什么时候能确认</th></tr>
+          <tr><td>数据补齐能不能只做核心表</td><td>如果不行，周期从 10 周变 16 周</td><td>第 2 周技术评估后</td></tr>
+          <tr><td>1.5 人能不能从现有排期里挤出来</td><td>如果不行，需外部支援或延后</td><td>本周内确认</td></tr>
+        </table>
+        <p class="lede">这两件确认之前，我不建议对外承诺时间。</p>
+      </div>
+      <div class="foot">以上两项会在第 2 周周报里给出明确结论，不留悬念。</div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>需要你今天给三个答复</h2><span class="num">05 / 05</span></div>
+      <div class="body">
+        <div class="ask">
+          <div><b>决定一</b>走 A、B 还是 C</div>
+          <div><b>决定二</b>人力从哪来：现有排期，还是外部支援</div>
+          <div><b>决定三</b>对外能不能说"分阶段交付"</div>
+        </div>
+        <p class="lede">三个都定了，我明天出排期；缺任何一个，这活就先不动。</p>
+      </div>
+      <div class="foot">如果今天定不了，建议下周同一时间再开一次，中间我去把第 4 页那两件事确认掉。</div>
+    </section>
+
+  </main>
+</div>
+<script>
+class Deck{constructor(){this.s=Array.from(document.querySelectorAll('.slide'));this.st=document.getElementById('stage');this.p=document.getElementById('progress');this.i=0;
+const fit=()=>{const f=Math.min(innerWidth/1920,innerHeight/1080);this.st.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`};fit();addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1)}if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.s.length-1);if(e.key.toLowerCase()==='f')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()});this.go(0)}
+go(n){this.i=Math.max(0,Math.min(n,this.s.length-1));this.s.forEach((el,k)=>{el.classList.toggle('active',k===this.i);el.classList.toggle('visible',k===this.i)});this.p.style.width=((this.i+1)/this.s.length*100)+'%'}}
+new Deck();
+</script>
+</body>
+</html>

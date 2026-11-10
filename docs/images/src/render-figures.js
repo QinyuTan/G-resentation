@@ -17,6 +17,8 @@ const jobs = [
   { file: "compare.html", out: "compare-en.png", width: 1280, height: 720, query: "?lang=en" },
   { file: "samples.html", out: "samples-zh.png", width: 1280, height: 720, query: "" },
   { file: "samples.html", out: "samples-en.png", width: 1280, height: 720, query: "?lang=en" },
+  { file: "scenarios.html", out: "scenarios-zh.png", width: 1280, height: 720, query: "" },
+  { file: "scenarios.html", out: "scenarios-en.png", width: 1280, height: 720, query: "?lang=en" },
 ];
 
 (async () => {

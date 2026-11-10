@@ -52,20 +52,23 @@ G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
 
 **只认真产物。** 样稿阶段不接受截图。截图看不出缩放溢出、看不出动画卡顿、看不出字被挡住。要么给能打开的文件，要么别说做完了。
 
-## 四份真样例
+## 七种场合，一套流程
 
-![同一主题，两种受众](docs/images/samples-zh.png)
+![七种场合，一套流程](docs/images/scenarios-zh.png)
 
-同一份行业事实，讲给客户和讲给同事，结构完全不同：对外先给判断、每条带出处、收尾讲"不该做什么"；对内只留三条硬事实，其余换成"关我什么事"，收尾是"三个人，一个场景"。
+场景按"谁在场 × 要达成什么"划分，两两不重叠，合起来覆盖绝大多数情况。同一句"做个 AI 行业现状"，讲给客户和讲给同事，结构完全不同——不只是换配色。
 
-| 样例 | 场合 | 版式 | 页数 |
-|---|---|---|---|
-| [客户提案](samples/client-proposal/) | 会后发 PDF | 咨询版式，白底蓝调 | 14 |
-| [全员宣讲](samples/internal-briefing/) | 现场招募试点 | 深色大字报，橙调 | 8 |
-| [内部培训](samples/training/) | 要打印讲义 | 米色教学，4:3 画布 | 6 |
-| [部门周会](samples/weekly-sync/) | 小事档，填表就走 | 深色极简 | 5 |
+| # | 场景 | 谁在场 | 要达成 | 样例 |
+|---|---|---|---|---|
+| 01 | 客户提案 | 外部 · 尚未合作 | 争取资源或签约 | [client-proposal](samples/client-proposal/)，14 页咨询风 |
+| 02 | 交付复盘 | 外部 · 已合作 | 维护信任与续约 | [delivery-review](samples/delivery-review/)，5 页青蓝数据 |
+| 03 | 全员宣讲 | 对内 · 一对多 | 动员与传播 | [internal-briefing](samples/internal-briefing/)，8 页深色大字报 |
+| 04 | 内部决策 | 对内 · 少数人 | 当场拍板 | [decision-brief](samples/decision-brief/)，5 页深蓝琥珀 |
+| 05 | 进度同步 | 对内 · 团队 | 信息对齐 | [weekly-sync](samples/weekly-sync/)，5 页深色极简 |
+| 06 | 培训赋能 | 对内 · 学员 | 教会做某件事 | [training](samples/training/)，6 页米色 4:3 |
+| 07 | 自阅存档 | 无人在场 | 事后能查能复核 | [self-read](samples/self-read/)，5 页文档体 |
 
-每份都带 `brief.md` 和 `outline.md`，双击目录里的 `index.html` 就能翻页。差别不在配色——同样一句"做个 AI 行业现状"，换受众之后，标题怎么起、证据放几页、最后一句说什么，全都变了。
+七份都带 `brief.md` 与 `outline.md`，双击目录里的 `index.html` 就能翻页。七份都过了机检、在浏览器里逐页翻过、无溢出。
 
 ## 安装
 
@@ -139,7 +142,7 @@ skills/g-resentation/
     └── snapshot.py       留版
 ```
 
-仓库根目录另有 `samples/`：四份完整样例（客户提案、全员宣讲、内部培训、部门周会），每份都带 `brief.md` 与 `outline.md`，可以直接打开看。
+仓库根目录另有 `samples/`：七份完整样例，覆盖七种场合，每份都带 `brief.md` 与 `outline.md`，可以直接打开看。
 
 ## 它不做的事
 
@@ -178,18 +181,21 @@ The order isn't invented for this repo. Across three-plus years of consulting an
 
 The left side isn't a strawman — it's the cheapest correct-looking output when nothing is constrained: every slide is titled with a category, every slide is true, none of them moves a decision. The left image is a representative illustration, not a verbatim reproduction of one specific run; the right image is real output.
 
-**Four finished samples.** Same industry facts, two audiences — and the deck changes shape: to clients, judgement first, every claim sourced, closing on what *not* to do; to colleagues, three hard facts and the rest answers "why me", closing on "three people, one scenario, ninety days".
+**Seven occasions, one pipeline.** Split by *who is in the room, and what must happen* — no overlaps. The same topic becomes a different deck for clients and for colleagues; not just a palette swap.
 
-![One topic, two audiences](docs/images/samples-en.png)
+![Seven occasions, one pipeline](docs/images/scenarios-en.png)
 
-| Sample | Occasion | Layout | Pages |
-|---|---|---|---|
-| [Client proposal](samples/client-proposal/) | PDF after the meeting | Consulting, white + blue | 14 |
-| [All-hands](samples/internal-briefing/) | Recruit pilot volunteers | Dark poster, orange | 8 |
-| [Training](samples/training/) | Printed handout | Warm paper, 4:3 | 6 |
-| [Weekly sync](samples/weekly-sync/) | Small job, form only | Dark minimal | 5 |
+| # | Occasion | In the room | Must happen | Sample |
+|---|---|---|---|---|
+| 01 | Client proposal | External, new | Win budget or signature | [client-proposal](samples/client-proposal/), 14 slides |
+| 02 | Delivery review | External, existing | Keep trust, renew | [delivery-review](samples/delivery-review/), 5 slides |
+| 03 | All-hands | Internal, one-to-many | Mobilise and spread | [internal-briefing](samples/internal-briefing/), 8 slides |
+| 04 | Decision brief | Internal, few people | Decide in the room | [decision-brief](samples/decision-brief/), 5 slides |
+| 05 | Weekly sync | Internal, team | Get aligned | [weekly-sync](samples/weekly-sync/), 5 slides |
+| 06 | Training | Internal, learners | Teach a skill | [training](samples/training/), 6 slides, 4:3 |
+| 07 | Self-read memo | Nobody | Stay auditable | [self-read](samples/self-read/), 5 slides |
 
-Each ships with its `brief.md` and `outline.md`; open any `index.html` and use the arrow keys.
+Every sample ships with its `brief.md` and `outline.md`; all seven pass the scripts, page through cleanly in a browser, and have no overflow.
 
 Not another topic-to-slides generator. It owns the part between a blank page and something you can hand to a client.
 
