@@ -70,6 +70,8 @@ G-resentation 的做法很朴素：**先问，再锁，后做，最后验。**
 
 七份都带 `brief.md` 与 `outline.md`，双击目录里的 `index.html` 就能翻页。七份都过了机检、在浏览器里逐页翻过、无溢出。
 
+说清楚这些样例的边界：页面是 agent 手写的 HTML 实现，不是由制作技能跑出来的产物；只有 client-proposal 走了完整闸口（brief → 逐页稿 → 机检 → 冻结 → 三页样稿 → 全量），其余六份是先做页面、再回溯整理文档。它们证明的是版式能力与场景映射，不证明流水线已端到端自动生成。详见 [samples/README.md](samples/README.md)。
+
 ## 安装
 
 一条命令，装到全局：
@@ -196,6 +198,8 @@ The left side isn't a strawman — it's the cheapest correct-looking output when
 | 07 | Self-read memo | Nobody | Stay auditable | [self-read](samples/self-read/), 5 slides |
 
 Every sample ships with its `brief.md` and `outline.md`; all seven pass the scripts, page through cleanly in a browser, and have no overflow.
+
+To be precise about what they show: the pages are hand-authored HTML by the agent, not output from a build skill. Only `client-proposal` went through the full gate sequence; the other six were built first and documented afterwards. They demonstrate layout range and scenario mapping — not an end-to-end automated pipeline. See [samples/README.md](samples/README.md).
 
 Not another topic-to-slides generator. It owns the part between a blank page and something you can hand to a client.
 
