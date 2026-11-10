@@ -1,0 +1,24 @@
+docs/images/src/scenarios.html
+  s_a021e8a85011df::t_43949a6f4d4887 19,62-68,71-77,107
+  s_a021e8a85011df::t_15c98b60257415 11-15,17-18,20-23,25-30,37,42,82,88,96-101,106,108-116,120
+README.md
+  s_a021e8a85011df::t_e0d19179f397c0 73-74,202
+samples/README.md
+  s_a021e8a85011df::t_ab6d2db810325e 3,15-21,23,25-29,35,37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "1333ea5f399a771813c49b36dae97be038d9d3ca",
+  "prompts": {},
+  "sessions": {
+    "s_a021e8a85011df": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_d5ldynw7zo2i",
+        "model": "auto(free)"
+      },
+      "human_author": "Terri Tan <QinyuTan@users.noreply.github.com>"
+    }
+  }
+}

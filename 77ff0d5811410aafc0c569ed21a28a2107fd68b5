@@ -1,0 +1,52 @@
+samples/training/index.html
+  s_a021e8a85011df::t_d3a04929f59797 1-195
+samples/weekly-sync/brief.md
+  s_a021e8a85011df::t_4170bb64add1c4 1-19
+samples/weekly-sync/outline.md
+  s_a021e8a85011df::t_86b41625949c70 1-50
+samples/internal-briefing/outline.md
+  s_a021e8a85011df::t_1c8063dabed9fb 1-77
+samples/weekly-sync/index.html
+  s_a021e8a85011df::t_cf287e3ab1995b 1-177
+samples/internal-briefing/brief.md
+  s_a021e8a85011df::t_e4c67bd863cfe9 1-20
+samples/client-proposal/brief.md
+  s_a021e8a85011df::t_eaa29a262484c4 1-43
+README.md
+  s_a021e8a85011df::t_11e57282917f09 181-193
+  s_a021e8a85011df::t_82398795c6eebc 142-143
+  s_a021e8a85011df::t_326ae9b6848c24 55-69
+samples/training/brief.md
+  s_a021e8a85011df::t_cd124eb94e4099 1-19
+samples/internal-briefing/index.html
+  s_a021e8a85011df::t_30367524968628 1-193
+docs/images/src/samples.html
+  s_a021e8a85011df::t_1ec76cd829a81e 1-82,84-95,97-116,118-124
+  s_a021e8a85011df::t_7d8ff5c5f40116 83,96,117
+samples/README.md
+  s_a021e8a85011df::t_fad0dfdee80bc7 1-27
+docs/images/src/render-figures.js
+  s_a021e8a85011df::t_1f1c095b896cf7 18-19
+samples/client-proposal/index.html
+  s_a021e8a85011df::t_eaa29a262484c4 1-1038
+samples/training/outline.md
+  s_a021e8a85011df::t_f4e54455f11f12 1-59
+samples/client-proposal/outline.md
+  s_a021e8a85011df::t_eaa29a262484c4 1-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "77ff0d5811410aafc0c569ed21a28a2107fd68b5",
+  "prompts": {},
+  "sessions": {
+    "s_a021e8a85011df": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_d5ldynw7zo2i",
+        "model": "auto(free)"
+      },
+      "human_author": "Terri Tan <QinyuTan@users.noreply.github.com>"
+    }
+  }
+}
