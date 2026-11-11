@@ -1,0 +1,19 @@
+.github/workflows/ci.yml
+  s_a021e8a85011df::t_1ac996a9657e5d 10-11,13,15,17-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.52-trip",
+  "base_commit_sha": "0751a2e2ce6f40b7c9293ce20e03d0489a412473",
+  "prompts": {},
+  "sessions": {
+    "s_a021e8a85011df": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_d5ldynw7zo2i",
+        "model": "auto(free)"
+      },
+      "human_author": "Terri Tan <QinyuTan@users.noreply.github.com>"
+    }
+  }
+}
