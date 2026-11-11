@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每周进度同步 · 增长组</title>
+<style>
+  :root {
+    --bg: #0B1220;
+    --ink: #F2F5FA;
+    --muted: #93A0B0;
+    --accent: #7DE2A8;
+    --warn: #FFB86B;
+    --rule: rgba(242,245,250,.14);
+    --stage-bg: #05080E;
+    --slide-bg: #0B1220;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:var(--stage-bg); }
+
+  .deck-viewport { position:fixed; inset:0; overflow:hidden; background:var(--stage-bg); }
+  .deck-stage { position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden; transform-origin:0 0; background:var(--slide-bg); }
+  .slide {
+    position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden;
+    display:block; visibility:hidden; opacity:0; pointer-events:none; background:var(--slide-bg);
+    padding:110px 130px; color:var(--ink);
+    font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  .slide.active, .slide.visible { visibility:visible; opacity:1; pointer-events:auto; z-index:1; }
+
+  .eyebrow { font-size:24px; letter-spacing:.26em; color:var(--accent); text-transform:uppercase; }
+  h1 { font-size:120px; line-height:1.08; letter-spacing:-.03em; font-weight:700; margin-top:34px; }
+  h2 { font-size:76px; line-height:1.18; letter-spacing:-.02em; font-weight:700; }
+  .lede { font-size:32px; line-height:1.6; color:var(--muted); margin-top:36px; max-width:1200px; }
+
+  .cover { display:flex; flex-direction:column; justify-content:center; }
+  .cover .meta { position:absolute; left:130px; right:130px; bottom:110px; display:flex; justify-content:space-between; font-size:24px; color:var(--muted); border-top:1px solid var(--rule); padding-top:26px; }
+
+  .head { display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid var(--rule); padding-bottom:34px; }
+  .head .num { font-size:26px; color:var(--muted); letter-spacing:.2em; }
+
+  .body { margin-top:74px; display:flex; flex-direction:column; gap:44px; }
+
+  .row { display:grid; grid-template-columns:280px 1fr 220px; gap:56px; align-items:baseline; padding:34px 0; border-bottom:1px solid var(--rule); }
+  .row:last-child { border-bottom:none; }
+  .row .k { font-size:34px; font-weight:600; }
+  .row .v { font-size:32px; line-height:1.5; color:#D8DFE9; }
+  .row .s { font-size:26px; text-align:right; letter-spacing:.04em; }
+  .ok { color:var(--accent); }
+  .risk { color:var(--warn); }
+
+  .big { font-size:88px; line-height:1.35; font-weight:700; letter-spacing:-.02em; }
+  .big em { font-style:normal; color:var(--accent); }
+
+  .three { display:grid; grid-template-columns:repeat(3,1fr); gap:44px; margin-top:20px; }
+  .card { border-top:2px solid var(--accent); padding-top:26px; }
+  .card .t { font-size:30px; color:var(--muted); letter-spacing:.1em; margin-bottom:16px; }
+  .card .n { font-size:56px; font-weight:700; }
+  .card .d { font-size:26px; color:var(--muted); margin-top:14px; line-height:1.5; }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .5s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1); }
+  .slide.visible .reveal { opacity:1; transform:none; }
+  .slide.visible .reveal:nth-child(2) { transition-delay:.08s; }
+  .slide.visible .reveal:nth-child(3) { transition-delay:.16s; }
+
+  .progress { position:fixed; left:0; top:0; height:3px; background:var(--accent); width:0; z-index:10; transition:width .3s ease; }
+  @media print { .progress { display:none; } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport">
+  <main class="deck-stage" id="stage">
+
+    <section class="slide cover active visible">
+      <div class="eyebrow">增长组 · 每周同步</div>
+      <h1>这周我们<br>把流失率<br>压回了水位。</h1>
+      <p class="lede">三件事：一件成了，一件卡住，一件下周才能验。</p>
+      <div class="meta"><span>2026-11-10 · 15 分钟</span><span>01 / 05</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>一件成了</h2><span class="num">02 / 05</span></div>
+      <div class="body">
+        <div class="row reveal">
+          <div class="k">做了什么</div>
+          <div class="v">把到期前 90 天的联系动作写进 CRM 自动任务，责任到人。</div>
+          <div class="s ok">已上线</div>
+        </div>
+        <div class="row reveal">
+          <div class="k">结果</div>
+          <div class="v">本周联系覆盖率 41% → 67%，目标 80%。</div>
+          <div class="s ok">+26pt</div>
+        </div>
+        <div class="row reveal">
+          <div class="k">代价</div>
+          <div class="v">销售每人每周多约 40 分钟，暂无投诉。</div>
+          <div class="s">可接受</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>一件卡住</h2><span class="num">03 / 05</span></div>
+      <div class="body">
+        <div class="big reveal">中台接口还没排期，<br>自动任务只能<em>手工补</em>。</div>
+        <div class="three">
+          <div class="card reveal"><div class="t">影响</div><div class="n">2 周</div><div class="d">覆盖率停在 70% 附近上不去</div></div>
+          <div class="card reveal"><div class="t">需要</div><div class="n">1 人日</div><div class="d">中台给一个只读接口</div></div>
+          <div class="card reveal"><div class="t">不解决</div><div class="n">持平</div><div class="d">试点结束后照旧手工</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>下周怎么验</h2><span class="num">04 / 05</span></div>
+      <div class="body">
+        <div class="row reveal">
+          <div class="k">看什么数</div>
+          <div class="v">到期前 90 天联系覆盖率、试点 20 家的续约意向。</div>
+          <div class="s">每周一</div>
+        </div>
+        <div class="row reveal">
+          <div class="k">怎么算成</div>
+          <div class="v">覆盖率过 80%，且试点组续约意向高于对照组 3 个百分点。</div>
+          <div class="s">事先定好</div>
+        </div>
+        <div class="row reveal">
+          <div class="k">不成怎么办</div>
+          <div class="v">退回手工名单制，改做"到期前 120 天"预警，不再加人。</div>
+          <div class="s risk">有退路</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="head"><h2>一句话</h2><span class="num">05 / 05</span></div>
+      <div class="body">
+        <div class="big reveal">方向对了，<em>缺一个接口</em>。<br>给一天人力，两周内能证明它对不对。</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+class Deck {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.stage = document.getElementById('stage');
+    this.progress = document.getElementById('progress');
+    this.i = 0;
+    const fit = () => {
+      const f = Math.min(innerWidth / 1920, innerHeight / 1080);
+      this.stage.style.transform = `translate(${(innerWidth - 1920 * f) / 2}px, ${(innerHeight - 1080 * f) / 2}px) scale(${f})`;
+    };
+    fit(); addEventListener('resize', fit);
+    addEventListener('keydown', (e) => {
+      if (['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)) { e.preventDefault(); this.go(this.i + 1); }
+      if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.i - 1); }
+      if (e.key === 'Home') this.go(0);
+      if (e.key === 'End') this.go(this.slides.length - 1);
+      if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    });
+    this.go(0);
+  }
+  go(n) {
+    this.i = Math.max(0, Math.min(n, this.slides.length - 1));
+    this.slides.forEach((s, k) => { s.classList.toggle('active', k === this.i); s.classList.toggle('visible', k === this.i); });
+    this.progress.style.width = ((this.i + 1) / this.slides.length * 100) + '%';
+  }
+}
+new Deck();
+</script>
+</body>
+</html>

@@ -9,6 +9,12 @@ import shutil
 import sys
 from pathlib import Path
 
+# Windows 控制台默认不是 UTF-8，中文输出会抛 UnicodeEncodeError
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+
+
 
 def next_index(versions: Path) -> int:
     nums = [int(m.group(1)) for p in versions.iterdir() if p.is_dir() and (m := re.match(r"v(\d+)", p.name))]

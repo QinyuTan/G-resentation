@@ -8,6 +8,12 @@ import re
 import sys
 from pathlib import Path
 
+# Windows 控制台默认不是 UTF-8，中文输出会抛 UnicodeEncodeError
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+
+
 PAGE_RE = re.compile(r"^##\s+P(\d+)\b(.*)$")
 FIELDS = [
     "想表达的意思",

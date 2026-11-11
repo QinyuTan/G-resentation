@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="G-resentation 七份真样例的在线演示：客户提案、交付复盘、全员宣讲、内部决策、周会同步、培训、自阅存档，点开即看。">
+<title>G-resentation · 七份真样例，点开即看</title>
+<style>
+  :root{
+    --ink:#051C2C; --muted:#5B6B7C; --faint:#8A94A0; --accent:#2251FF;
+    --rule:#E2E7EC; --panel:#F6F8FA; --bg:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:"Source Han Sans SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:56px 28px 72px}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:26px}
+  .brand{font-size:13px;letter-spacing:.24em;color:var(--accent);font-weight:600}
+  h1{font-size:44px;line-height:1.2;letter-spacing:-.02em;margin-top:14px}
+  .lede{font-size:17px;line-height:1.75;color:var(--muted);margin-top:16px;max-width:760px}
+  .lede b{color:var(--ink)}
+
+  .install{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:26px;background:var(--panel);padding:16px 20px}
+  .install code{font-family:Consolas,"Courier New",monospace;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--rule);padding:8px 12px}
+  .install a{font-size:14px;color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(34,81,255,.3)}
+  .install span{font-size:13px;color:var(--faint)}
+
+  .sec-title{display:flex;align-items:baseline;justify-content:space-between;margin:54px 0 20px}
+  h2{font-size:22px;letter-spacing:-.01em}
+  .sec-title span{font-size:13px;color:var(--faint)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:620px){.grid{grid-template-columns:1fr}}
+
+  a.card{display:flex;flex-direction:column;border:1px solid var(--rule);text-decoration:none;color:inherit;background:#fff;transition:border-color .15s ease,transform .15s ease}
+  a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .thumb{height:150px;background:var(--panel);overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .thumb img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .body{padding:16px 16px 18px;border-top:3px solid var(--k,#2251FF);display:flex;flex-direction:column;gap:7px}
+  .num{font-size:11px;letter-spacing:.16em;color:var(--faint)}
+  .name{font-size:18px;font-weight:700}
+  .meta{font-size:12.5px;color:var(--muted);line-height:1.55}
+  .meta b{color:var(--ink);font-weight:600}
+  .go{margin-top:6px;font-size:12.5px;color:var(--accent)}
+
+  footer{margin-top:56px;border-top:1px solid var(--rule);padding-top:20px;font-size:12.5px;color:var(--faint);line-height:1.8}
+  footer b{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">G-PRESENTATION</div>
+    <h1>七份真样例，点开即看</h1>
+    <p class="lede">同一个流程，七种场合。里面的文字、版式、数字都是真跑过的产物——<b>每份都带自己的需求说明与逐页稿</b>。点任意一张卡片就能翻页，方向键切换，按 F 全屏。</p>
+    <div class="install">
+      <code>npx skills add QinyuTan/G-resentation --skill g-resentation -g -y</code>
+      <a href="https://github.com/QinyuTan/G-resentation" target="_blank" rel="noopener">仓库与文档 →</a>
+      <span>装完跑一次自检，它会告诉你缺什么</span>
+    </div>
+  </header>
+
+  <div class="sec-title"><h2>七种场合</h2><span>按"谁在场 × 要达成什么"划分</span></div>
+
+  <div class="grid">
+    <a class="card" href="samples/client-proposal.html" style="--k:#2251FF">
+      <div class="thumb"><img src="images/cover-client.png" alt="客户提案封面"></div>
+      <div class="body"><div class="num">01</div><div class="name">客户提案</div>
+        <div class="meta">外部 · 尚未合作　<b>争取资源或签约</b></div>
+        <div class="meta">14 页 · 咨询版式 · 白底蓝调</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/delivery-review.html" style="--k:#0E7490">
+      <div class="thumb"><img src="images/cover-delivery.png" alt="交付复盘封面"></div>
+      <div class="body"><div class="num">02</div><div class="name">交付复盘</div>
+        <div class="meta">外部 · 已合作　<b>维护信任与续约</b></div>
+        <div class="meta">5 页 · 青蓝数据风</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/internal-briefing.html" style="--k:#FF5A1F">
+      <div class="thumb"><img src="images/cover-internal.png" alt="全员宣讲封面"></div>
+      <div class="body"><div class="num">03</div><div class="name">全员宣讲</div>
+        <div class="meta">对内 · 一对多　<b>动员与传播</b></div>
+        <div class="meta">8 页 · 深色大字报</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/decision-brief.html" style="--k:#F2B233">
+      <div class="thumb"><img src="images/cover-decision.png" alt="内部决策封面"></div>
+      <div class="body"><div class="num">04</div><div class="name">内部决策</div>
+        <div class="meta">对内 · 少数人　<b>当场拍板</b></div>
+        <div class="meta">5 页 · 深蓝配琥珀</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/weekly-sync.html" style="--k:#4ADE80">
+      <div class="thumb"><img src="images/cover-weekly.png" alt="进度同步封面"></div>
+      <div class="body"><div class="num">05</div><div class="name">进度同步</div>
+        <div class="meta">对内 · 团队　<b>信息对齐</b></div>
+        <div class="meta">5 页 · 深色极简</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/training.html" style="--k:#B45309">
+      <div class="thumb"><img src="images/cover-training.png" alt="培训赋能封面"></div>
+      <div class="body"><div class="num">06</div><div class="name">培训赋能</div>
+        <div class="meta">对内 · 学员　<b>教会做某件事</b></div>
+        <div class="meta">6 页 · 4:3 米色，便于打印</div>
+        <div class="go">打开 →</div></div>
+    </a>
+
+    <a class="card" href="samples/self-read.html" style="--k:#7A2E2E">
+      <div class="thumb"><img src="images/cover-selfread.png" alt="自阅存档封面"></div>
+      <div class="body"><div class="num">07</div><div class="name">自阅存档</div>
+        <div class="meta">无人在场　<b>事后能查能复核</b></div>
+        <div class="meta">5 页 · 文档体，衬线字</div>
+        <div class="go">打开 →</div></div>
+    </a>
+  </div>
+
+  <footer>
+    <p><b>说明：</b>页面为 agent 手写的 HTML 实现，用来展示版式与场景映射，不代表流水线已端到端自动生成。七份里只有「客户提案」走了完整闸口。</p>
+    <p style="margin-top:6px">核心设计有两条：逐页稿确认后<b>页码冻结</b>（增删页要你点头，脚本会比对基线）；样稿阶段<b>只认真产物</b>（能翻的网页、原始分辨率图片、能打开的 PPTX，不看截图）。</p>
+  </footer>
+</div>
+</body>
+</html>
